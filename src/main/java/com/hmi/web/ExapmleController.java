@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import lombok.AllArgsConstructor;
 
-@Controller
 @AllArgsConstructor
+@Controller
 public class ExapmleController {
 
     @GetMapping("/layout_content_example")
