@@ -20,13 +20,13 @@ public class HmiControlRecordService {
 	
 	private HmiControlRecordMapper hmiControlRecordMapper;
 	
-	public List<Map<String, Object>> selectControlRecordList() {
-		return hmiControlRecordMapper.selectControlRecordList();
-	}
-	
 	@Transactional
-    public int save(HmiControlRecordSaveRequestDto dto){
+    public long save(HmiControlRecordSaveRequestDto dto){
         return hmiControlRecordRepository.save(dto.toEntity()).getNo();
     }
+	
+	public List<Map<String, Object>> selectControlRecordList(Map<String, Object> param) {
+		return hmiControlRecordMapper.selectHmiControlRecordList(param);
+	}
 	
 }

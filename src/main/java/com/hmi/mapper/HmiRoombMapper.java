@@ -6,8 +6,8 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface HmiControlRecordMapper {
+public interface HmiRoombMapper {
 	
-	public List<Map<String, Object>> selectHmiControlRecordList(Map<String, Object> param);
+	public List<Map<String, Object>> selectHmiRoombList(Map<String, Object> param);
 	
 }

@@ -4,7 +4,6 @@ import java.sql.Timestamp;
 
 import com.hmi.domain.HmiControlRecord;
 
-import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -38,22 +37,6 @@ public class HmiControlRecordSaveRequestDto {
 				.regDate(regDate)
 				.onOff(onOff)
 				.build();
-	}
-	
-	@Builder
-	public HmiControlRecordSaveRequestDto(int no, String dong, int floor, int ho, float nowTemp, float setTemp,
-			int nowControlValue, float setControlValue, Timestamp regDate, int onOff) {
-		super();
-		this.no = no;
-		this.dong = dong;
-		this.floor = floor;
-		this.ho = ho;
-		this.nowTemp = nowTemp;
-		this.setTemp = setTemp;
-		this.nowControlValue = nowControlValue;
-		this.setControlValue = setControlValue;
-		this.regDate = regDate;
-		this.onOff = onOff;
 	}
 	
 }

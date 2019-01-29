@@ -1,5 +1,6 @@
 package com.hmi.web;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -14,13 +15,13 @@ import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 @RestController
-public class HmiControlRecordController {
-	
+public class HmiHistoryManagementController {
+
 	private HmiControlRecordService hmiControlRecordService;
 
     @PostMapping("/selectControlRecordList")
     public List<Map<String, Object>> selectControlRecordList(@RequestBody HmiControlRecordSaveRequestDto dto){
-    	return hmiControlRecordService.selectControlRecordList();
+    	return hmiControlRecordService.selectControlRecordList(new HashMap<String, Object>());
     }
-
+    
 }
