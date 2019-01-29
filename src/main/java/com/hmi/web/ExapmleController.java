@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import com.hmi.dto.HmiRoomaSaveRequestDto;
+import com.hmi.dto.HmiControlRecordSaveRequestDto;
 import com.hmi.service.HmiControlRecordService;
 
 import lombok.AllArgsConstructor;
@@ -21,8 +21,8 @@ public class ExapmleController {
         return "view/layout_content_example";
     }
     
-    @PutMapping("/saveRooma")
-    public void saveRooma(@RequestBody HmiRoomaSaveRequestDto dto){
+    @PutMapping("/saveControlRecord")
+    public void saveControlRecord(@RequestBody HmiControlRecordSaveRequestDto dto){
     	hmiRoomaService.save(dto);
     }
     

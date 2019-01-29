@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hmi.mapper.HmiControlRecordMapper">
+
+	<select id="selectControlRecordList" resultType="hashmap">
+		SELECT
+			NO,
+			DONG,
+			FLOOR,
+			HO,
+			NOW_CONTROL_VALUE,
+			NOW_TEMP,
+			ON_OFF,
+			REG_DATE,
+			SET_CONTROL_VALUE,
+			SET_TEMP
+		FROM
+			HMI_CONTROL_RECORD
+    </select>
+
+</mapper>
