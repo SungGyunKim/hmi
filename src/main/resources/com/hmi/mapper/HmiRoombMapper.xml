@@ -5,17 +5,38 @@
 	<select id="selectHmiRoombList" resultType="hashmap">
 		SELECT
 			NO,
-			DONG,
 			FLOOR,
 			HO,
-			NOW_CONTROL_VALUE,
-			NOW_TEMP,
-			ON_OFF,
-			REG_DATE,
-			SET_CONTROL_VALUE,
-			SET_TEMP
+			INHEATING,
+			INSIDETEMP,
+			NOWCONTROLVALUE,
+			NOWFLOW,
+			ONOFF,
+			OUTHEATING,
+			REGDATE,
+			SETCONTROLVALUE,
+			SETDATE,
+			SETTEMP,
+			TOTALFLOW,
+			TOTALHEAT
 		FROM
-			HMI_CONTROL_RECORD
+			ROOMB
+    </select>
+    
+	<select id="selectRoomTempSts" resultType="hashmap">
+	    SELECT
+			date_format(RegDate,'%H') as HH,
+			round(avg(InsideTemp), 1) as InsideTemp,
+			round(avg(SetTemp), 1) as SetTemp
+		FROM
+			RoomB
+		WHERE
+			date_format(RegDate,'%Y%m%d') = date_format(now(),'%Y%m%d')
+			<if test="ho != null">
+			AND Ho = #{ho}
+			</if>
+		GROUP BY
+			date_format(RegDate,'%Y%m%d%H')
     </select>
 
 </mapper>

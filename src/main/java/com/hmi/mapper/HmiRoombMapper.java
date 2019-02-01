@@ -9,5 +9,7 @@ import org.apache.ibatis.annotations.Mapper;
 public interface HmiRoombMapper {
 	
 	public List<Map<String, Object>> selectHmiRoombList(Map<String, Object> param);
+
+	public List<Map<String, Object>> selectRoomTempSts(Map<String, Object> param);
 	
 }

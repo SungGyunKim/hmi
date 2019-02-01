@@ -25,8 +25,12 @@ public class HmiRoomaService {
         return hiRoomaRepository.save(dto.toEntity()).getNo();
     }
 	
-	public List<Map<String, Object>> selectControlRecordList(Map<String, Object> param) {
+	public List<Map<String, Object>> selectHmiRoomaList(Map<String, Object> param) {
 		return hmiRoomaMapper.selectHmiRoomaList(param);
+	}
+	
+	public List<Map<String, Object>> selectRoomTempSts(Map<String, Object> param) {
+		return hmiRoomaMapper.selectRoomTempSts(param);
 	}
 	
 }
