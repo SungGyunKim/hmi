@@ -90,17 +90,6 @@
 			});
 			
 			$( "#room" ).change(function() {
-				var roomInfo = {
-					roomB: [
-						{ ho: 101, name: "101호" },
-						{ ho: 102, name: "102호" }
-					],
-					roomC: [
-						{ ho: 201, name: "201호" },
-						{ ho: 201, name: "202호" }
-					]
-				}
-				
 				var hoInfo = roomInfo[this.value];
 				
 				makeOption("#ho", hoInfo, "ho", "name");
