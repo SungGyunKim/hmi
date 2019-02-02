@@ -20,7 +20,7 @@ public class HmiHistoryManagementController {
 	private HmiControlRecordService hmiControlRecordService;
 
     @PostMapping("/selectControlRecordList")
-    public List<Map<String, Object>> selectControlRecordList(@RequestBody HmiControlRecordSaveRequestDto dto){
+    public List<Map<String, Object>> selectControlRecordList(@RequestBody HmiControlRecordSaveRequestDto dto) {
     	return hmiControlRecordService.selectControlRecordList(new HashMap<String, Object>());
     }
     

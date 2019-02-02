@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main_layout">
+<head>
+	<style type="text/css">
+		.floor {
+			text-align: center;
+		}
+		
+		.floor .ho {
+			display: inline-block;
+			width: 120px;
+			height: 140px;
+			padding-left: 5px;
+			padding-right: 5px;
+			background-color: #f5f5f5;
+			border: 1px solid #e3e3e3;
+		}
+		
+		.floor .ho .ho-name {
+			text-align: left;
+		}
+		
+		.floor .ho .ho-form-group {
+			text-align: left;
+		}
+		
+		.floor .ho .ho-form-group label {
+			margin-right: 5px;
+		}
+		
+		.floor .ho .ho-form-group input[type="text"] {
+			width: 37px;
+		}
+	</style>
+</head>
+<body>
+    <section class="content" layout:fragment="content">
+      <!-- 검색조건 영역 -->
+      <div class="row" style="display: none;">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-body">
+			  <form role="form" class="form-inline frmSearchCondition">
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 검색결과 영역 -->
+      <div class="row">
+      	<div class="col-md-12">
+      	  <div class="box box-solid">
+            <div class="box-body">
+				<form>
+					<div class="floor" id="floorTemplate">
+						<div class="ho">
+							<div class="ho-name">501호</div>
+							<div>
+								<div class="ho-form-group">
+									<input type="hidden" id="floor" name="floor" value="5">
+									<input type="hidden" id="ho" name="ho" value="501">
+								</div>
+								<div class="ho-form-group">
+									<label for="colFormLabelSm">현재</label>
+									<input type="text" id="a" name="a" disabled="disabled">
+									<span>°C</span>
+								</div>
+								<div class="ho-form-group">
+									<label for="colFormLabelSm">설정</label>
+									<input type="text" id="b" name="b" disabled="disabled">
+									<span>°C</span>
+								</div>
+								<div class="ho-form-group">
+									<label for="colFormLabelSm">유량</label>
+									<input type="text" id="c" name="c" disabled="disabled">
+									<span>kg/hr</span>
+								</div>
+								<div class="ho-form-group">
+									<label for="colFormLabelSm">난방</label>
+									<input type="checkbox" id="d" name="d" checked disabled data-toggle="toggle" data-size="mini" data-width="37">
+								</div>
+							</div>
+						</div>
+						<div class="ho">
+							<div class="ho-name">502호</div>
+							<div>
+								<div class="ho-form-group">
+									<input type="hidden" id="floor" name="floor" value="5">
+									<input type="hidden" id="ho" name="ho" value="501">
+								</div>
+								<div class="ho-form-group">
+									<label for="colFormLabelSm">현재</label>
+									<input type="text" id="a" name="a" min="0" max="40">
+									<span>°C</span>
+								</div>
+								<div class="ho-form-group">
+									<label for="colFormLabelSm">설정</label>
+									<input type="text" id="b" name="b" min="0" max="40">
+									<span>°C</span>
+								</div>
+								<div class="ho-form-group">
+									<label for="colFormLabelSm">용량</label>
+									<input type="text" id="c" name="c" min="0" max="40">
+									<span>kg</span>
+								</div>
+								<div class="ho-form-group">
+									<label for="colFormLabelSm">난방</label>
+									<input type="checkbox" id="d" name="d" checked data-toggle="toggle" data-size="mini" data-width="37">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="floor" data-floor="4">
+						<div class="ho" data-ho="401">401호</div>
+						<div class="ho" data-ho="402">402호</div>
+						<div class="ho" data-ho="403">403호</div>
+						<div class="ho" data-ho="404">404호</div>
+						<div class="ho" data-ho="405">405호</div>
+						<div class="ho" data-ho="406">406호</div>
+					</div>
+					<div class="floor" data-floor="3">
+						<div class="ho" data-ho="301">301호</div>
+						<div class="ho" data-ho="302">302호</div>
+						<div class="ho" data-ho="303">303호</div>
+						<div class="ho" data-ho="304">304호</div>
+						<div class="ho" data-ho="305">305호</div>
+						<div class="ho" data-ho="306">306호</div>
+						<div class="ho" data-ho="307">307호</div>
+						<div class="ho" data-ho="308">308호</div>
+						<div class="ho" data-ho="309">309호</div>
+						<div class="ho" data-ho="410">410호</div>
+					</div>
+					<div class="floor" data-floor="2">
+						<div class="ho" data-ho="201">201호</div>
+						<div class="ho" data-ho="202">202호</div>
+						<div class="ho" data-ho="203">203호</div>
+						<div class="ho" data-ho="204">204호</div>
+						<div class="ho" data-ho="205">205호</div>
+						<div class="ho" data-ho="206">206호</div>
+						<div class="ho" data-ho="207">207호</div>
+						<div class="ho" data-ho="208">208호</div>
+						<div class="ho" data-ho="209">209호</div>
+						<div class="ho" data-ho="410">410호</div>
+					</div>
+					<div class="floor" data-floor="1">
+						<div class="ho" data-ho="101">101호</div>
+						<div class="ho" data-ho="102">102호</div>
+						<div class="ho" data-ho="103">103호</div>
+						<div class="ho" data-ho="104">104호</div>
+						<div class="ho" data-ho="105">105호</div>
+						<div class="ho" data-ho="106">106호</div>
+						<div class="ho" data-ho="107">107호</div>
+						<div class="ho" data-ho="108">108호</div>
+						<div class="ho" data-ho="109">109호</div>
+						<div class="ho" data-ho="410">410호</div>
+					</div>
+				</form>
+				<form name="building"></form>
+            </div>
+      	  </div>
+      	</div>
+      </div>
+    </section>
+    
+	<th:block layout:fragment="content_js">
+		<script th:inline="javascript">
+		/*<![CDATA[*/
+			
+		$(function () {
+			var floorCount = 5;
+			var hoInfoList = roomInfo["roomB"];
+			
+			for(var i=floorCount; i>0; i--) {
+				// 복사
+				
+				// 호 정보
+				for(var j=0; j<hoInfoList.length; j++) {
+					var floorTemplate = $("#floorTemplate").clone();
+					var hoInfo = hoInfoList[j];
+					
+					if(i == hoInfo.floor) {
+						console.log("i = " + i, " j = " + j);
+						$('form[name="building"]').append(floorTemplate);
+					}
+				}
+			}
+		});
+		
+		/*]]>*/
+		</script>
+	</th:block>
+</body>
+</html>

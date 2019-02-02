@@ -90,9 +90,9 @@
 			});
 			
 			$( "#room" ).change(function() {
-				var hoInfo = roomInfo[this.value];
+				var hoInfoList = roomInfo[this.value];
 				
-				makeOption("#ho", hoInfo, "ho", "name");
+				makeOption("#ho", hoInfoList, "ho", "name");
 			});
 		});
 		
