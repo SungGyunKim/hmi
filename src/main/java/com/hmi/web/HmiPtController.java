@@ -18,14 +18,14 @@ public class HmiPtController {
 	
 	private HmiPtMenuService hmiPtMenuService;
 	
-	@GetMapping("/dmnt/dmntRoomaList")
+	@GetMapping("/dmnt/dmntRoombList")
     public String main() {
-        return "view/dmnt/dmntRoomaList";
+        return "view/dmnt/dmntRoombList";
     }
 	
-	@GetMapping("/mtr/mtrRooma")
+	@GetMapping("/mtr/mtrRoomb")
     public String mtrRooma() {
-        return "view/mtr/mtrRooma";
+        return "view/mtr/mtrRoomb";
     }
 	
 	@GetMapping("/menu")

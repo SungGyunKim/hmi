@@ -16,7 +16,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
-public class HmiRooma {
+public class HmiRoomc {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -65,7 +65,7 @@ public class HmiRooma {
 	private Timestamp setDate;
 	
 	@Builder
-	public HmiRooma(long no, int floor, int ho, int insideTemp, float setTemp, int inHeating, int outHeating,
+	public HmiRoomc(long no, int floor, int ho, int insideTemp, float setTemp, int inHeating, int outHeating,
 			int nowControlValue, float setControlValue, Timestamp regDate, float nowFlow, float totalFlow, int onOff,
 			float totalHeat, Timestamp setDate) {
 		super();
