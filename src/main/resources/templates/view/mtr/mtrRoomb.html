@@ -86,7 +86,7 @@
 						</div>
 					</div>
 				</div>
-				<button type="button" class="btn btn-primary btn-sm" style="position: absolute;" id="btnBatchControl">일괄 제어</button>
+				<button type="button" class="btn btn-primary btn-sm" style="position: absolute;" id="btnBatchControl" data-toggle="modal">일괄 제어</button>
 				<form name="building">
 				</form>
             </div>
@@ -101,6 +101,7 @@
       	  </div>
       	</div>
       </div>
+      <div class="modal-container"></div>
     </section>
     
 	<th:block layout:fragment="content_js">
@@ -173,10 +174,12 @@
 		
 		function initButton() {
 			$("#btnBatchControl").click(function() {
-				alert("준비 중");
+				var url = "/mtr/mtrRoombBatchControlPopup";
+				$('.modal-container').load(url, function(result) {
+					$('.modal').modal({show:true});
+				});
 			});
 		}
-		
 		
 		/*]]>*/
 		</script>
