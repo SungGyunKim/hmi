@@ -21,7 +21,7 @@
                 </div>
                 <div class="form-group">
                   <label class="control-label" for="room">숙소동</label>
-                  <select class="form-control input-sm" name="room" id="room">
+                  <select class="form-control input-sm" name="room" id="room" disabled>
                     <option value="">-- 선택 --</option>
                     <option value="roomB">숙소동-B</option>
                     <option value="roomC">숙소동-C</option>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group">
                   <label class="control-label" for="gubun">구분</label>
-                  <select class="form-control input-sm" name="gubun" id="gubun" disabled="disabled">
+                  <select class="form-control input-sm" name="gubun" id="gubun" disabled>
                   	<option value="">현재/설정온도</option>
                   </select>
                 </div>
@@ -87,10 +87,6 @@
 		$(function () {
 			initGrid();
 			
-			$("#regDate").datepicker({
-				autoclose: true
-		    }).datepicker("setDate", new Date());
-			    
 			$("#btnSearch").click(function() {
 				$("#roomTitle").text("숙소동 [ " + $("#room option:selected").text() + " ]");
 				$("#hoTitle").text("호실 [ " + $("#ho option:selected").text() + " ]");
@@ -103,11 +99,16 @@
 				alert("준비 중");
 			});
 			
-			$( "#room" ).change(function() {
+			$("#regDate").datepicker({
+				autoclose: true
+		    }).datepicker("setDate", new Date());
+			
+			$("#room").change(function() {
 				var hoInfoList = roomInfo[this.value];
 				
 				makeOption("#ho", hoInfoList, "ho", "name");
 			});
+			$("#room").val("roomB").change();
 		});
 		
 		function initGrid() {
