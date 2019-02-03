@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hmi.mapper.HmiRoomaMapper">
+<mapper namespace="com.hmi.mapper.HmiRoomcMapper">
 
-	<select id="selectHmiRoomaList" resultType="hashmap">
+	<select id="selectHmiRoomList" resultType="hashmap">
 		SELECT
 			NO,
 			FLOOR,
@@ -20,19 +20,19 @@
 			TOTALFLOW,
 			TOTALHEAT
 		FROM
-			ROOMA
+			ROOMB
     </select>
-
+    
 	<select id="selectRoomTempSts" resultType="hashmap">
 	    SELECT
 			date_format(RegDate,'%H') as HH,
 			round(avg(InsideTemp), 1) as InsideTemp,
 			round(avg(SetTemp), 1) as SetTemp
 		FROM
-			RoomA
+			RoomB
 		WHERE
 			date_format(RegDate,'%Y%m%d') = #{regDate}
-			<if test="ho != null and ho != ''">
+			<if test="ho != null">
 			AND Ho = #{ho}
 			</if>
 		GROUP BY
