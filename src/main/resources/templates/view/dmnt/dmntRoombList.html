@@ -85,8 +85,11 @@
 		/*<![CDATA[*/
 			
 		$(function () {
+			initButton();
 			initGrid();
-			
+		});
+		
+		function initButton() {
 			$("#btnSearch").click(function() {
 				$("#roomTitle").text("숙소동 [ " + $("#room option:selected").text() + " ]");
 				$("#hoTitle").text("호실 [ " + $("#ho option:selected").text() + " ]");
@@ -109,7 +112,7 @@
 				makeOption("#ho", hoInfoList, "ho", "name");
 			});
 			$("#room").val("roomB").change();
-		});
+		}
 		
 		function initGrid() {
 			$("#grid").jqGrid({

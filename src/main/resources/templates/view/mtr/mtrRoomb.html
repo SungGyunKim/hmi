@@ -2,6 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main_layout">
 <head>
 	<style type="text/css">
+		.hidden {
+			display: none;
+		}
+		
 		.floor {
 			text-align: center;
 		}
@@ -9,7 +13,7 @@
 		.floor .ho {
 			display: inline-block;
 			width: 120px;
-			height: 140px;
+			height: 130px;
 			padding-left: 5px;
 			padding-right: 5px;
 			background-color: #f5f5f5;
@@ -51,111 +55,48 @@
       	<div class="col-md-12">
       	  <div class="box box-solid">
             <div class="box-body">
-				<form>
-					<div class="floor" id="floorTemplate">
-						<div class="ho">
-							<div class="ho-name">501호</div>
-							<div>
-								<div class="ho-form-group">
-									<input type="hidden" id="floor" name="floor" value="5">
-									<input type="hidden" id="ho" name="ho" value="501">
-								</div>
-								<div class="ho-form-group">
-									<label for="colFormLabelSm">현재</label>
-									<input type="text" id="a" name="a" disabled="disabled">
-									<span>°C</span>
-								</div>
-								<div class="ho-form-group">
-									<label for="colFormLabelSm">설정</label>
-									<input type="text" id="b" name="b" disabled="disabled">
-									<span>°C</span>
-								</div>
-								<div class="ho-form-group">
-									<label for="colFormLabelSm">유량</label>
-									<input type="text" id="c" name="c" disabled="disabled">
-									<span>kg/hr</span>
-								</div>
-								<div class="ho-form-group">
-									<label for="colFormLabelSm">난방</label>
-									<input type="checkbox" id="d" name="d" checked disabled data-toggle="toggle" data-size="mini" data-width="37">
-								</div>
-							</div>
+            	<!-- floor template -->
+            	<div class="floor hidden"></div>
+            	<!-- ho template -->
+            	<div class="ho hidden">
+					<div class="ho-name"></div>
+					<div>
+						<div class="ho-form-group">
+							<input type="hidden" id="floor" name="floor" value="">
+							<input type="hidden" id="ho" name="ho" value="">
 						</div>
-						<div class="ho">
-							<div class="ho-name">502호</div>
-							<div>
-								<div class="ho-form-group">
-									<input type="hidden" id="floor" name="floor" value="5">
-									<input type="hidden" id="ho" name="ho" value="501">
-								</div>
-								<div class="ho-form-group">
-									<label for="colFormLabelSm">현재</label>
-									<input type="text" id="a" name="a" min="0" max="40">
-									<span>°C</span>
-								</div>
-								<div class="ho-form-group">
-									<label for="colFormLabelSm">설정</label>
-									<input type="text" id="b" name="b" min="0" max="40">
-									<span>°C</span>
-								</div>
-								<div class="ho-form-group">
-									<label for="colFormLabelSm">용량</label>
-									<input type="text" id="c" name="c" min="0" max="40">
-									<span>kg</span>
-								</div>
-								<div class="ho-form-group">
-									<label for="colFormLabelSm">난방</label>
-									<input type="checkbox" id="d" name="d" checked data-toggle="toggle" data-size="mini" data-width="37">
-								</div>
-							</div>
+						<div class="ho-form-group">
+							<label for="colFormLabelSm">현재</label>
+							<input type="text" id="a" name="a" disabled="disabled">
+							<span>°C</span>
+						</div>
+						<div class="ho-form-group">
+							<label for="colFormLabelSm">설정</label>
+							<input type="text" id="b" name="b" disabled="disabled">
+							<span>°C</span>
+						</div>
+						<div class="ho-form-group">
+							<label for="colFormLabelSm">유량</label>
+							<input type="text" id="c" name="c" disabled="disabled">
+							<span>kg/hr</span>
+						</div>
+						<div class="ho-form-group">
+							<label for="colFormLabelSm">난방</label>
+							<input type="checkbox" id="d" name="d" checked disabled data-toggle="toggle" data-size="mini" data-width="37">
 						</div>
 					</div>
-					<div class="floor" data-floor="4">
-						<div class="ho" data-ho="401">401호</div>
-						<div class="ho" data-ho="402">402호</div>
-						<div class="ho" data-ho="403">403호</div>
-						<div class="ho" data-ho="404">404호</div>
-						<div class="ho" data-ho="405">405호</div>
-						<div class="ho" data-ho="406">406호</div>
-					</div>
-					<div class="floor" data-floor="3">
-						<div class="ho" data-ho="301">301호</div>
-						<div class="ho" data-ho="302">302호</div>
-						<div class="ho" data-ho="303">303호</div>
-						<div class="ho" data-ho="304">304호</div>
-						<div class="ho" data-ho="305">305호</div>
-						<div class="ho" data-ho="306">306호</div>
-						<div class="ho" data-ho="307">307호</div>
-						<div class="ho" data-ho="308">308호</div>
-						<div class="ho" data-ho="309">309호</div>
-						<div class="ho" data-ho="410">410호</div>
-					</div>
-					<div class="floor" data-floor="2">
-						<div class="ho" data-ho="201">201호</div>
-						<div class="ho" data-ho="202">202호</div>
-						<div class="ho" data-ho="203">203호</div>
-						<div class="ho" data-ho="204">204호</div>
-						<div class="ho" data-ho="205">205호</div>
-						<div class="ho" data-ho="206">206호</div>
-						<div class="ho" data-ho="207">207호</div>
-						<div class="ho" data-ho="208">208호</div>
-						<div class="ho" data-ho="209">209호</div>
-						<div class="ho" data-ho="410">410호</div>
-					</div>
-					<div class="floor" data-floor="1">
-						<div class="ho" data-ho="101">101호</div>
-						<div class="ho" data-ho="102">102호</div>
-						<div class="ho" data-ho="103">103호</div>
-						<div class="ho" data-ho="104">104호</div>
-						<div class="ho" data-ho="105">105호</div>
-						<div class="ho" data-ho="106">106호</div>
-						<div class="ho" data-ho="107">107호</div>
-						<div class="ho" data-ho="108">108호</div>
-						<div class="ho" data-ho="109">109호</div>
-						<div class="ho" data-ho="410">410호</div>
-					</div>
+				</div>
+				<button type="button" class="btn btn-primary btn-sm" style="position: absolute;" id="btnBatchControl">일괄 제어</button>
+				<form name="building">
 				</form>
-				<form name="building"></form>
+            </div>
+      	  </div>
+      	  <div class="box box-solid">
+            <div class="box-body">
+            	<div class="text-right">
+            		단위 : 시간
+            	</div>
+				<table id="grid" class="col-md-12"></table>
             </div>
       	  </div>
       	</div>
@@ -167,24 +108,75 @@
 		/*<![CDATA[*/
 			
 		$(function () {
+			initView();
+			initButton();
+			initGrid();
+		});
+		
+		function initView() {
 			var floorCount = 5;
 			var hoInfoList = roomInfo["roomB"];
 			
 			for(var i=floorCount; i>0; i--) {
-				// 복사
+				var floorTemplate = $(".floor.hidden").clone();
+				floorTemplate.removeClass("hidden");
 				
-				// 호 정보
 				for(var j=0; j<hoInfoList.length; j++) {
-					var floorTemplate = $("#floorTemplate").clone();
 					var hoInfo = hoInfoList[j];
 					
 					if(i == hoInfo.floor) {
-						console.log("i = " + i, " j = " + j);
-						$('form[name="building"]').append(floorTemplate);
+						var hoTemplate = $(".ho.hidden").clone();
+						hoTemplate.removeClass("hidden");
+						hoTemplate.find(".ho-name").html(hoInfo.name);
+						hoTemplate.find("#floor").val(hoInfo.floor);
+						hoTemplate.find("#ho").val(hoInfo.ho);
+						
+						hoTemplate.dblclick(function() {
+							var hoName = $(this).find(".ho-name").html();
+							var floor = $(this).find("#floor").val();
+							var ho = $(this).find("#ho").val();
+							
+							alert(
+								"hoName = " + hoName + "\n" +
+								"floor = " + floor + "\n" +
+								"ho = " + ho + "\n"
+							);
+						});
+						floorTemplate.append(hoTemplate);
 					}
 				}
+				
+				$('form[name="building"]').append(floorTemplate);
 			}
-		});
+		}
+		
+		function initGrid() {
+			$("#grid").jqGrid({
+				datatype: "json",
+			   	colNames: ["구분","전체","1층","2층","3층","4층","5층"],
+			   	colModel: [
+			   		{name:"RegDate", index:"RegDate", width:100, align:"center"}, // 구분
+			   		{name:"Ho", index:"Ho", width:100, align:"center"},	// 전체
+			   		{name:"OnOff", index:"OnOff", width:100, align:"center"}, // 1층
+			   		{name:"InsideTemp", index:"InsideTemp", width:100, align:"right"}, // 2층
+			   		{name:"SetTemp", index:"SetTemp", width:100, align:"right"}, // 3층
+			   		{name:"InHeating", index:"InHeating", width:100, align:"right"}, // 4층
+			   		{name:"OutHeating", index:"OutHeating", width:100, align:"right"}, // 5층
+			   	],
+			   	rowNum: -1,
+			    viewrecords: true,
+			    autowidth: true, 
+			    shrinkToFit: true,
+			    forceFit: false
+			});
+		}
+		
+		function initButton() {
+			$("#btnBatchControl").click(function() {
+				alert("준비 중");
+			});
+		}
+		
 		
 		/*]]>*/
 		</script>
