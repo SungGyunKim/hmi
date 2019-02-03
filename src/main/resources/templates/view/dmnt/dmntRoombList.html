@@ -33,6 +33,12 @@
                   	<option value="">-- 선택 --</option>
                   </select>
                 </div>
+                <div class="form-group">
+                  <label class="control-label" for="gubun">구분</label>
+                  <select class="form-control input-sm" name="gubun" id="gubun" disabled="disabled">
+                  	<option value="">현재/설정온도</option>
+                  </select>
+                </div>
                 <div class="form-group pull-right">
                   <button type="button" class="btn btn-primary btn-sm" id="btnSearch"><i class="fa fa-search"></i> 검색</button>
                   <button type="button" class="btn btn-primary btn-sm" id="btnExcelownload"><i class="fa fa-download"></i> 다운로드</button>
@@ -66,12 +72,8 @@
             </div>
       	  </div>
       	  <div class="box box-solid">
-			<div class="box-header with-border">
-              <h3 class="box-title" id="hoTitle">호실</h3>
-            </div>
             <div class="box-body">
-              <table id="list2"></table>
-              <div id="pager2"></div>
+				<table id="grid" class="col-md-12"></table>
             </div>
       	  </div>
       	</div>
@@ -83,7 +85,9 @@
 		/*<![CDATA[*/
 			
 		$(function () {
-			$('#regDate').datepicker({
+			initGrid();
+			
+			$("#regDate").datepicker({
 				autoclose: true
 		    }).datepicker("setDate", new Date());
 			    
@@ -92,6 +96,7 @@
 				$("#hoTitle").text("호실 [ " + $("#ho option:selected").text() + " ]");
 				selectRoomTempSts();
 				selectRoomHoTempSts();
+				selectRoomList();
 			});
 			
 			$("#btnExcelownload").click(function() {
@@ -103,29 +108,31 @@
 				
 				makeOption("#ho", hoInfoList, "ho", "name");
 			});
-			
-			jQuery("#list2").jqGrid({
-			   	url:'server.php?q=2',
-				datatype: "json",
-			   	colNames:['Inv No','Date', 'Client', 'Amount','Tax','Total','Notes'],
-			   	colModel:[
-			   		{name:'id',index:'id', width:55},
-			   		{name:'invdate',index:'invdate', width:90},
-			   		{name:'name',index:'name asc, invdate', width:100},
-			   		{name:'amount',index:'amount', width:80, align:"right"},
-			   		{name:'tax',index:'tax', width:80, align:"right"},		
-			   		{name:'total',index:'total', width:80,align:"right"},		
-			   		{name:'note',index:'note', width:150, sortable:false}		
-			   	],
-			   	rowNum:10,
-			   	rowList:[10,20,30],
-			   	pager: '#pager2',
-			   	sortname: 'id',
-			    viewrecords: true,
-			    sortorder: "desc"
-			});
-			jQuery("#list2").jqGrid('navGrid','#pager2',{edit:false,add:false,del:false});
 		});
+		
+		function initGrid() {
+			$("#grid").jqGrid({
+				datatype: "json",
+			   	colNames: ["일시","객실","난방설정","객실온도","설정온도","공급온도","환수온도","유량순시치","밸브개도율","온도차"],
+			   	colModel: [
+			   		{name:"RegDate", index:"RegDate", width:100, align:"center"}, // 일시
+			   		{name:"Ho", index:"Ho", width:100, align:"center"},	// 객실
+			   		{name:"OnOff", index:"OnOff", width:100, align:"center"}, // 난방설정
+			   		{name:"InsideTemp", index:"InsideTemp", width:100, align:"right"}, // 객실온도
+			   		{name:"SetTemp", index:"SetTemp", width:100, align:"right"}, // 설정온도
+			   		{name:"InHeating", index:"InHeating", width:100, align:"right"}, // 공급온도
+			   		{name:"OutHeating", index:"OutHeating", width:100, align:"right"}, // 환수온도
+			   		{name:"NowFlow", index:"NowFlow", width:100, align:"right"}, // 유량순시치
+			   		{name:"NowControlValue", index:"NowControlValue", width:100, align:"right"}, // 밸브개도율
+			   		{name:"DiffHeating", index:"DiffHeating", width:100, align:"right"} // 온도차(공급온도-환수온도)
+			   	],
+			   	rowNum: -1,
+			    viewrecords: true,
+			    autowidth: true, 
+			    shrinkToFit: true,
+			    forceFit: false
+			});
+		}
 		
 		function makeOption(selector, optionMap, valueField, textField) {
 			$(selector).empty();
@@ -138,26 +145,26 @@
 		};
 		
 		function selectRoomTempSts() {
-			var param = $(".frmSearchCondition").serializeObject();
+			var searchCondition = $(".frmSearchCondition").serializeObject();
 			
-			var roomParam = {};
-			roomParam.regDate = $("#regDate").data('datepicker').getFormattedDate('yyyymmdd');
-			roomParam.room = param.room;
+			var param = {};
+			param.regDate = $("#regDate").data("datepicker").getFormattedDate("yyyymmdd");
+			param.room = param.room;
 			
 			$("#roomTempStsChart").empty();
 			
 			$.ajax({ 
                 type: "GET", 
-                url: "/dmt/selectRoomTempSts", 
-                data: roomParam,
+                url: "/dmt/selectRoombTempSts", 
+                data: param,
                 dataType:"json",
                 success: function (data) {
                 	Morris.Line({
-						element: 'roomTempStsChart',
+						element: "roomTempStsChart",
         				data: data,
-						xkey: 'HH',
-						ykeys: ['SetTemp', 'InsideTemp'],
-						labels: ['설정 온도', '현재 온도'],
+						xkey: "HH",
+						ykeys: ["SetTemp", "InsideTemp"],
+						labels: ["설정 온도", "현재 온도"],
 						parseTime: false,
 						xLabels: "hour",
 						yLabelFormat: function (y) { return y.toString() + "°C"; }
@@ -167,32 +174,46 @@
 		};
 		
 		function selectRoomHoTempSts() {
-			var param = $(".frmSearchCondition").serializeObject();
+			var searchCondition = $(".frmSearchCondition").serializeObject();
 			
-			var hoParam = {};
-			hoParam.regDate = $("#regDate").data('datepicker').getFormattedDate('yyyymmdd');
-			hoParam.room = param.room;
-			hoParam.ho = param.ho;
+			var param = {};
+			param.regDate = $("#regDate").data("datepicker").getFormattedDate("yyyymmdd");
+			param.room = searchCondition.room;
+			param.ho = searchCondition.ho;
 			
 			$("#roomTempHoStsChart").empty();
 			
 			$.ajax({ 
                 type: "GET", 
-                url: "/dmt/selectRoomTempSts", 
-                data: hoParam,
+                url: "/dmt/selectRoombTempSts", 
+                data: param,
                 dataType:"json",
                 success: function (data) {
                 	Morris.Line({
-						element: 'roomTempHoStsChart',
+						element: "roomTempHoStsChart",
         				data: data,
-						xkey: 'HH',
-						ykeys: ['SetTemp', 'InsideTemp'],
-						labels: ['설정 온도', '현재 온도'],
+						xkey: "HH",
+						ykeys: ["SetTemp", "InsideTemp"],
+						labels: ["설정 온도", "현재 온도"],
 						parseTime: false,
-						yLabelFormat: function (y) { return y.toString() + '°C'; }
+						yLabelFormat: function (y) { return y.toString() + "°C"; }
 					});
                 }
             });
+		}
+		
+		function selectRoomList() {
+			var searchCondition = $(".frmSearchCondition").serializeObject();
+			
+			var param = {};
+			param.regDate = $("#regDate").data("datepicker").getFormattedDate("yyyymmdd");
+			
+			$("#grid")
+			.jqGrid("clearGridData", true)
+			.jqGrid("setGridParam", {
+				url: "/dmt/selectRoombList",
+				postData: param,
+			}).trigger("reloadGrid");
 		}
 		
 		/*]]>*/

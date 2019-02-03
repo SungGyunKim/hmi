@@ -2,25 +2,36 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hmi.mapper.HmiRoombMapper">
 
-	<select id="selectHmiRoomList" resultType="hashmap">
+	<select id="selectRoomList" resultType="hashmap">
 		SELECT
-			NO,
-			FLOOR,
-			HO,
-			INHEATING,
-			INSIDETEMP,
-			NOWCONTROLVALUE,
-			NOWFLOW,
-			ONOFF,
-			OUTHEATING,
-			REGDATE,
-			SETCONTROLVALUE,
-			SETDATE,
-			SETTEMP,
-			TOTALFLOW,
-			TOTALHEAT
+			No,
+			Floor,
+			Ho,
+			InsideTemp,
+			SetTemp,
+			InHeating,
+			OutHeating,
+			NowControlValue,
+			SetControlValue,
+			DATE_FORMAT(RegDate, '%Y-%m-%d %H:%i:%s') AS RegDate,
+			NowFlow,
+			TotalFlow,
+			(CASE WHEN OnOff = 0 THEN 'OFF' WHEN OnOff = 1 THEN 'ON' END) AS OnOff,
+			TotalHeat,
+			DATE_FORMAT(SetDate, '%Y-%m-%d %H:%i:%s') AS SetDate,
+			InHeating - OutHeating AS DiffHeating
 		FROM
-			ROOMA
+			RoomA
+		<where>
+			<if test="ho != null and ho != ''">
+			AND Ho = #{ho}
+			</if>
+			<if test="regDate != null and regDate != ''">
+			AND date_format(RegDate,'%Y%m%d') = #{regDate}
+			</if>
+		</where>
+		ORDER BY
+			RegDate DESC
     </select>
 
 	<select id="selectRoomTempSts" resultType="hashmap">

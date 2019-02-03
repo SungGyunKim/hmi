@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface HmiRoomcMapper {
 	
-	public List<Map<String, Object>> selectHmiRoomList(Map<String, Object> param);
+	public List<Map<String, Object>> selectRoomList(Map<String, Object> param);
 
 	public List<Map<String, Object>> selectRoomTempSts(Map<String, Object> param);
 	
