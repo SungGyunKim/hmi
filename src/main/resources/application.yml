@@ -12,3 +12,7 @@ spring:
     url: jdbc:log4jdbc:mariadb://localhost:3306/hmi
     username: hmi
     password: hmi
+logging:
+  level:
+    root: info
+    com.hmi: debug
