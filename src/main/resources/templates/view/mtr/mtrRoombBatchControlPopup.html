@@ -1,8 +1,27 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
-<title>Insert title here</title>
+	<style type="text/css">
+		.modal-dialog {
+			width: 700px;
+		}
+		
+		.modal .ho-select label {
+			width: 40px;
+		}
+		
+		.modal .templeftContainer {
+			display: inline-block;
+			width: 120px;
+			text-align: left;
+		}
+		
+		.modal .tempRightContainer {
+			display: inline-block;
+			width: 200px;
+			text-align: left;
+		}
+	</style>
 </head>
 <body>
 	<div class="modal fade">
@@ -14,10 +33,162 @@
 	        <h4 class="modal-title">제어 데이터 설정</h4>
 	      </div>
 	      <div class="modal-body">
-	        <p>One fine body&hellip;</p>
+	      	<form name="frmDataControlConfig">
+		      	<div class="ho-select">
+			      	<div>
+			      		<input type="checkbox" class="flat-red all" id="all">
+			      		<label for="all">전체</label>
+			      		<input type="checkbox" class="flat-red floor" data-floor="1">
+			      		<label for="1">1층</label>
+			      		<input type="checkbox" class="flat-red floor" data-floor="2">
+			      		<label for="2">2층</label>
+			      		<input type="checkbox" class="flat-red floor" data-floor="3">
+			      		<label for="3">3층</label>
+			      		<input type="checkbox" class="flat-red floor" data-floor="4">
+			      		<label for="4">4층</label>
+			      		<input type="checkbox" class="flat-red floor" data-floor="5">
+			      		<label for="5">5층</label>
+			      	</div>
+			      	<div>
+			      		<input type="checkbox" class="flat-red ho" data-floor="1" data-ho="101" name="hoList" value="101">
+			      		<label for="101">101호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="1" data-ho="102" name="hoList" value="102">
+			      		<label for="102">102호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="1" data-ho="103" name="hoList" value="103">
+			      		<label for="103">103호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="1" data-ho="104" name="hoList" value="104">
+			      		<label for="104">104호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="1" data-ho="105" name="hoList" value="105">
+			      		<label for="105">105호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="1" data-ho="106" name="hoList" value="106">
+			      		<label for="106">106호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="1" data-ho="107" name="hoList" value="107">
+			      		<label for="107">107호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="1" data-ho="108" name="hoList" value="108">
+			      		<label for="108">108호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="1" data-ho="109" name="hoList" value="109">
+			      		<label for="109">109호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="1" data-ho="110" name="hoList" value="110">
+			      		<label for="110">110호</label>
+			      	</div>
+			      	<div>
+			      		<input type="checkbox" class="flat-red ho" data-floor="2" data-ho="201" name="hoList" value="201">
+			      		<label for="201">201호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="2" data-ho="202" name="hoList" value="202">
+			      		<label for="202">202호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="2" data-ho="203" name="hoList" value="203">
+			      		<label for="203">203호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="2" data-ho="204" name="hoList" value="204">
+			      		<label for="204">204호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="2" data-ho="205" name="hoList" value="205">
+			      		<label for="205">205호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="2" data-ho="206" name="hoList" value="206">
+			      		<label for="206">206호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="2" data-ho="207" name="hoList" value="207">
+			      		<label for="207">207호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="2" data-ho="208" name="hoList" value="208">
+			      		<label for="208">208호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="2" data-ho="209" name="hoList" value="209">
+			      		<label for="209">209호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="2" data-ho="210" name="hoList" value="210">
+			      		<label for="210">210호</label>
+			      	</div>
+			      	<div>
+			      		<input type="checkbox" class="flat-red ho" data-floor="3" data-ho="301" name="hoList" value="301">
+			      		<label for="301">301호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="3" data-ho="302" name="hoList" value="302">
+			      		<label for="302">302호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="3" data-ho="303" name="hoList" value="303">
+			      		<label for="303">303호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="3" data-ho="304" name="hoList" value="304">
+			      		<label for="304">304호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="3" data-ho="305" name="hoList" value="305">
+			      		<label for="305">305호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="3" data-ho="306" name="hoList" value="306">
+			      		<label for="306">306호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="3" data-ho="307" name="hoList" value="307">
+			      		<label for="307">307호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="3" data-ho="308" name="hoList" value="308">
+			      		<label for="308">308호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="3" data-ho="309" name="hoList" value="309">
+			      		<label for="309">309호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="3" data-ho="310" name="hoList" value="310">
+			      		<label for="310">310호</label>
+			      	</div>
+			      	<div>
+			      		<input type="checkbox" class="flat-red ho" data-floor="4" data-ho="401" name="hoList" value="401">
+			      		<label for="401">401호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="4" data-ho="402" name="hoList" value="402">
+			      		<label for="402">402호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="4" data-ho="403" name="hoList" value="403">
+			      		<label for="403">403호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="4" data-ho="404" name="hoList" value="404">
+			      		<label for="404">404호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="4" data-ho="405" name="hoList" value="405">
+			      		<label for="405">405호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="4" data-ho="406" name="hoList" value="406">
+			      		<label for="406">406호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="4" data-ho="407" name="hoList" value="407">
+			      		<label for="407">407호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="4" data-ho="408" name="hoList" value="408">
+			      		<label for="408">408호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="4" data-ho="409" name="hoList" value="409">
+			      		<label for="409">409호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="4" data-ho="410" name="hoList" value="410">
+			      		<label for="410">410호</label>
+			      	</div>
+			      	<div>
+			      		<input type="checkbox" class="flat-red ho" data-floor="5" data-ho="501" name="hoList" value="501">
+			      		<label for="501">501호</label>
+			      		<input type="checkbox" class="flat-red ho" data-floor="5" data-ho="502" name="hoList" value="502">
+			      		<label for="502">502호</label>
+			      	</div>
+		      	</div>
+		      	<div style="height: 20px;"></div>
+		      	<div style="text-align: right;">
+		      		<div>
+		      			<div class="templeftContainer">
+		      				<input type="radio" name="grpTempKey" class="flat-red" id="DiffTemp" value="DiffTemp" checked>
+		      				<label for="DiffTemp">난방수온도차</label>
+		      			</div>
+		      			<div class="tempRightContainer">
+		      				<input type="text" id="txtDiffTemp" name="grpTempValue" style="text-align: right;">
+		      				<span>°C</span>
+		      			</div>
+		      		</div>
+		      		<div>
+		      			<div class="templeftContainer">
+		      				<input type="radio" name="grpTempKey" class="flat-red" id="OutHeating" value="OutHeating">
+			      			<label for="OutHeating">환수온도</label>
+		      			</div>
+		      			<div class="tempRightContainer">
+		      				<input type="text" id="txtOutHeating" name="grpTempValue" style="text-align: right;" disabled>
+		      				<span>°C</span>
+		      			</div>
+		      		</div>
+		      		<div>
+		      			<div class="templeftContainer">
+		      				<input type="radio" name="grpTempKey" class="flat-red" id="SetTemp" value="SetTemp">
+			      			<label for="SetTemp">설정온도</label>
+		      			</div>
+		      			<div class="tempRightContainer">
+		      				<input type="text" id="txtSetTemp" name="grpTempValue" style="text-align: right;" disabled>
+		      				<span>°C</span>
+		      			</div>
+		      		</div>
+		      		<div>
+		      			<div class="templeftContainer">
+		      				<label style="margin-left: 23px;">난방</label>
+		      			</div>
+		      			<div class="tempRightContainer">
+		      				<input type="checkbox" name="onOff" data-toggle="toggle" data-size="mini">
+		      			</div>
+		      		</div>
+		      	</div>
+		      </form>
 	      </div>
 	      <div class="modal-footer">
-	        <button type="button" class="btn btn-primary">저장</button>
+	        <button type="button" class="btn btn-primary" id="btnSave">저장</button>
 	        <button type="button" class="btn btn-default" data-dismiss="modal">닫기</button>
 	      </div>
 	    </div>
@@ -26,5 +197,69 @@
 	  <!-- /.modal-dialog -->
 	</div>
 	<!-- /.modal -->
+	<script type="text/javascript">
+	/*<![CDATA[*/
+	
+	$(function () {
+		// 외부 라이브러리 초기화 ※ 모달창 내부에서만 작동하기 위하여 .modal을 붙인다.
+		$('.modal input[type="checkbox"].flat-red, input[type="radio"].flat-red').iCheck({
+			checkboxClass: 'icheckbox_flat-green',
+			radioClass   : 'iradio_flat-green'
+	    });
+		$('.modal [data-toggle="toggle"]').bootstrapToggle();
+		
+		$("#btnSave").click(function() {
+			var dataControlConfig = $('form[name="frmDataControlConfig"]').serializeObject();
+			
+			if(!dataControlConfig.hoList) {
+				alert("선택된 호실이 없습니다.");
+				return;
+			}
+			
+			if(!dataControlConfig.grpTempValue) {
+				alert("온도가 설정되어 있지 않습니다.");
+				return;
+			}
+			
+			dataControlConfig.onOff = dataControlConfig.onOff ? "1" : "0";
+			
+			$.ajax({ 
+                type: "POST", 
+                url: "/mtr/mtrRoombBatchControl", 
+                data: dataControlConfig,
+                dataType:"json",
+                success: function (data) {
+                	
+                }
+            });
+		});
+		
+		// 전체
+		$(".flat-red.all").on("ifToggled", function() {
+			$(".flat-red.floor").iCheck(this.checked ? "check" : "uncheck");
+		});
+		
+		// 층
+		$(".flat-red.floor").on("ifToggled", function() {
+			var floor = $(this).data("floor");
+			
+			$(".flat-red.ho").filter("[data-floor="+floor+"]").iCheck(this.checked ? "check" : "uncheck");
+		});
+		
+		// 라디오 버튼에 따른 텍스트 입력칸 제어
+		$('input[type="radio"].flat-red').on("ifToggled", function() {
+			var value = $(this).val();
+			
+			if(this.checked) {
+				$("#txt" + value).prop('disabled', false);
+			} else {
+				$("#txt" + value).prop('disabled', true);
+				$("#txt" + value).val("");
+			}
+		});
+	});
+	
+	/*]]>*/
+	</script>
 </body>
 </html>
