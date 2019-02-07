@@ -1,5 +1,6 @@
 package com.hmi.web;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +17,9 @@ import lombok.extern.slf4j.Slf4j;
 public class HmiMonitoringController {
 	
 	@PostMapping("/mtr/mtrRoombBatchControl")
-	public void mtrRoombBatchControl(@RequestParam Map<String, Object> param) {
+	public void mtrRoombBatchControl(@RequestParam Map<String, Object> param, @RequestParam(value="hoList[]") List<Object> hoList) {
 		log.debug(param.toString());
+		log.debug(hoList.toString());
 		// TODO
 	}
 	

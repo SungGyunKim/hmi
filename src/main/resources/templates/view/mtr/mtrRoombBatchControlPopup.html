@@ -221,6 +221,10 @@
 				return;
 			}
 			
+			if(typeof dataControlConfig.hoList === 'string') {
+				dataControlConfig.hoList = [dataControlConfig.hoList];
+			}
+			
 			dataControlConfig.onOff = dataControlConfig.onOff ? "1" : "0";
 			
 			$.ajax({ 
