@@ -227,9 +227,8 @@
                 type: "POST", 
                 url: "/mtr/mtrRoombBatchControl", 
                 data: dataControlConfig,
-                dataType:"json",
                 success: function (data) {
-                	
+                	$(".modal").modal('toggle');
                 }
             });
 		});
