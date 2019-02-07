@@ -137,11 +137,13 @@
 							var floor = $(this).find("#floor").val();
 							var ho = $(this).find("#ho").val();
 							
-							alert(
-								"hoName = " + hoName + "\n" +
-								"floor = " + floor + "\n" +
-								"ho = " + ho + "\n"
-							);
+							var url   = "/mtr/mtrRoombHoInfoPopup";
+							var param = "";
+							param += "?ho="+ ho;
+							
+							$(".modal-container").load(url + param, function(result) {
+								$(".modal").modal("show");
+							});
 						});
 						floorTemplate.append(hoTemplate);
 					}
@@ -174,9 +176,11 @@
 		
 		function initButton() {
 			$("#btnBatchControl").click(function() {
-				var url = "/mtr/mtrRoombBatchControlPopup";
-				$('.modal-container').load(url, function(result) {
-					$('.modal').modal({show:true});
+				var url   = "/mtr/mtrRoombBatchControlPopup";
+				var param = "";
+				
+				$(".modal-container").load(url + param, function(result) {
+					$(".modal").modal("show");
 				});
 			});
 		}

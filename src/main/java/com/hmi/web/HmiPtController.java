@@ -33,6 +33,11 @@ public class HmiPtController {
         return "view/mtr/mtrRoombBatchControlPopup";
     }
 	
+	@GetMapping("/mtr/mtrRoombHoInfoPopup")
+    public String mtrRoombHoInfoPopup() {
+        return "view/mtr/mtrRoombHoInfoPopup";
+    }
+	
 	@GetMapping("/menu")
     public String menu(@RequestParam Map<String, Object> param, Model model) {
 		List<Map<String, Object>> menuList = hmiPtMenuService.selectHmiPtMenuList(param);
