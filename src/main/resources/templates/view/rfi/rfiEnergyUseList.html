@@ -57,37 +57,49 @@
 			});
 			
 			$("#btnSave").click(function() {
-				alert("준비 중");
+				var grid = $("#grid");
+	            var ids = grid.jqGrid('getDataIDs');
+	            
+	           	for (var i = 0; i < ids.length; i++) {
+	                grid.jqGrid('saveRow', ids[i]);
+	            }
 			});
 		}
 		
 		function initGrid() {
 			$("#grid").jqGrid({
 				datatype: "json",
-			   	colNames: ["구분","단위","합계","1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+			   	colNames: ["", "년도", "구분","단위","합계","1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
 			   	colModel: [
+			   		{name:"EU_ID", index:"EU_ID", hidden:true, key:true},
+			   		{name:"Year", index:"Year", width:"10%", align:"center", hidden:true}, // 년도
 			   		{name:"Energy_Name", index:"Energy_Name", width:"10%", align:"center"},	// 구분
 			   		{name:"Unit", index:"Unit", width:"10%", align:"center"}, // 단위
 			   		{name:"Year_Sum", index:"Year_Sum", width:"8%", align:"right", formatter: 'number'}, // 합계
-			   		{name:"Jan", index:"Jan", width:"6%", align:"right"}, // 1월
-			   		{name:"Feb", index:"Feb", width:"6%", align:"right"}, // 2월
-			   		{name:"Mar", index:"Mar", width:"6%", align:"right"}, // 3월
-			   		{name:"Apr", index:"Apr", width:"6%", align:"right"}, // 4월
-			   		{name:"May", index:"May", width:"6%", align:"right"}, // 5월
-			   		{name:"Jun", index:"Jun", width:"6%", align:"right"}, // 6월
-			   		{name:"Jul", index:"Jul", width:"6%", align:"right"}, // 7월
-			   		{name:"Aug", index:"Aug", width:"6%", align:"right"}, // 8월
-			   		{name:"Sep", index:"Sep", width:"6%", align:"right"}, // 9월
-			   		{name:"Oct", index:"Oct", width:"6%", align:"right"}, // 10월
-			   		{name:"Nov", index:"Nov", width:"6%", align:"right"}, // 11월
-			   		{name:"Dec", index:"Dec", width:"6%", align:"right"}, // 12월
+			   		{name:"Jan", index:"Jan", width:"6%", align:"right", editable:true}, // 1월
+			   		{name:"Feb", index:"Feb", width:"6%", align:"right", editable:true}, // 2월
+			   		{name:"Mar", index:"Mar", width:"6%", align:"right", editable:true}, // 3월
+			   		{name:"Apr", index:"Apr", width:"6%", align:"right", editable:true}, // 4월
+			   		{name:"May", index:"May", width:"6%", align:"right", editable:true}, // 5월
+			   		{name:"Jun", index:"Jun", width:"6%", align:"right", editable:true}, // 6월
+			   		{name:"Jul", index:"Jul", width:"6%", align:"right", editable:true}, // 7월
+			   		{name:"Aug", index:"Aug", width:"6%", align:"right", editable:true}, // 8월
+			   		{name:"Sep", index:"Sep", width:"6%", align:"right", editable:true}, // 9월	
+			   		{name:"Oct", index:"Oct", width:"6%", align:"right", editable:true}, // 10월
+			   		{name:"Nov", index:"Nov", width:"6%", align:"right", editable:true}, // 11월
+			   		{name:"Dec", index:"Dec", width:"6%", align:"right", editable:true}, // 12월
 			   	],
 			   	rowNum: -1,
 			    viewrecords: true,
 			    autowidth: true, 
 			    shrinkToFit: true,
 			    forceFit: false,
-			    height: 600
+			    height: 600,
+			    loadOnce: true,
+			    onSelectRow: function(id) {
+			    	$("#grid").jqGrid('editRow', id, true);
+				},
+				editurl: '/rfi/saveEnergyUseList'
 			});
 		}
 		
