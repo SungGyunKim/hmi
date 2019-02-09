@@ -37,13 +37,35 @@ public class HmiPtController {
     public String mtrRoombHoInfoPopup() {
         return "view/mtr/mtrRoombHoInfoPopup";
     }
+
+	@GetMapping("/htr/htrControlRecordList")
+    public String htrControlRecordList() {
+        return "view/htr/htrControlRecordList";
+    }
 	
+	@GetMapping("/htr/htrAlarmRecordList")
+    public String htrAlarmRecordList() {
+        return "view/htr/htrAlarmRecordList";
+    }
+
+	@GetMapping("/rfi/rfiEnergyUseList")
+    public String rfiEnergyUseList() {
+        return "view/rfi/rfiEnergyUseList";
+    }
+
+	@GetMapping("/rfi/rfiGoalInfoList")
+    public String rfiGoalInfoList() {
+        return "view/rfi/rfiGoalInfoList";
+    }
+	
+	@GetMapping("/rfi/rfiFactorInfoList")
+    public String rfiFactorInfoList() {
+        return "view/rfi/rfiFactorInfoList";
+    }
+
 	@GetMapping("/menu")
     public String menu(@RequestParam Map<String, Object> param, Model model) {
 		List<Map<String, Object>> menuList = hmiPtMenuService.selectHmiPtMenuList(param);
-		
-		
-		
         return "view/dmnt/dmntRoomaList";
     }
 	

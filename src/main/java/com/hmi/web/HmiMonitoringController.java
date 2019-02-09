@@ -29,4 +29,17 @@ public class HmiMonitoringController {
 		// TODO
 	}
 
+	@PostMapping("/mtr/mtrRoomcBatchControl")
+	public void mtrRoomcBatchControl(@RequestParam Map<String, Object> param, @RequestParam(value="hoList[]") List<Object> hoList) {
+		log.debug(param.toString());
+		log.debug(hoList.toString());
+		// TODO
+	}
+	
+	@GetMapping("/mtr/selectRoomc")
+	public void selectRoomc(@RequestParam Map<String, Object> param) {
+		log.debug(param.toString());
+		// TODO
+	}
+	
 }

@@ -22,22 +22,32 @@ public class HmiDataManagementController {
 	
 	@GetMapping("/dmt/selectRoombTempSts")
     public List<Map<String, Object>> selectRoombTempSts(@RequestParam Map<String, Object> param) {
-		return hmiRoombService.selectRoomTempSts(param);
+		return hmiRoombService.selectRoombTempSts(param);
     }
 	
 	@GetMapping("/dmt/selectRoombList")
-	public List<Map<String, Object>> selectHmiRoombList(@RequestParam Map<String, Object> param) {
-		return hmiRoombService.selectRoomList(param);
+	public List<Map<String, Object>> selectRoombList(@RequestParam Map<String, Object> param) {
+		return hmiRoombService.selectRoombList(param);
+	}
+	
+	@GetMapping("/dmt/selectRoombSts")
+	public List<Map<String, Object>> selectRoombSts(@RequestParam Map<String, Object> param) {
+		return hmiRoombService.selectRoombSts(param);
 	}
 	
 	@GetMapping("/dmt/selectRoomcTempSts")
 	public List<Map<String, Object>> selectRoomcTempSts(@RequestParam Map<String, Object> param) {
-		return hmiRoomcService.selectRoomTempSts(param);
+		return hmiRoomcService.selectRoomcTempSts(param);
 	}
 	
 	@GetMapping("/dmt/selectRoomcList")
-	public List<Map<String, Object>> selectHmiRoomcList(@RequestParam Map<String, Object> param) {
-		return hmiRoomcService.selectRoomList(param);
+	public List<Map<String, Object>> selectRoomcList(@RequestParam Map<String, Object> param) {
+		return hmiRoomcService.selectRoomcList(param);
 	}
-    
+
+	@GetMapping("/dmt/selectRoomcSts")
+    public List<Map<String, Object>> selectRoomcSts(@RequestParam Map<String, Object> param) {
+		return hmiRoomcService.selectRoomcSts(param);
+    }
+	
 }
