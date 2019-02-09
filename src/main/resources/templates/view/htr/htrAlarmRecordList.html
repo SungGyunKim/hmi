@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main_layout">
+<head>
+</head>
+<body>
+    <section class="content" layout:fragment="content">
+      <!-- 검색조건 영역 -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-body">
+			  <form role="form" class="form-inline frmSearchCondition">
+                <div class="form-group">
+                  <label class="control-label" for="regDate">일시</label>
+                  <div class="input-group date">
+                    <input type="text" class="form-control input-sm pull-right" id="alarmTimeFrom" name="alarmTimeFrom">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                  </div>
+                  <div class="input-group date">
+                    <input type="text" class="form-control input-sm pull-right" id="alarmTimeTo" name="alarmTimeTo">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-group pull-right">
+                  <button type="button" class="btn btn-primary btn-sm" id="btnSearch"><i class="fa fa-search"></i> 검색</button>
+                  <button type="button" class="btn btn-primary btn-sm" id="btnExcelownload"><i class="fa fa-download"></i> 다운로드</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 검색결과 영역 -->
+      <div class="row">
+      	<div class="col-md-12">
+      	  <div class="box box-solid">
+            <div class="box-body">
+				<table id="grid" class="col-md-12"></table>
+            </div>
+      	  </div>
+      	</div>
+      </div>
+    </section>
+    
+	<th:block layout:fragment="content_js">
+		<script th:inline="javascript">
+		/*<![CDATA[*/
+			
+		$(function () {
+			initButton();
+			initGrid();
+		});
+		
+		function initButton() {
+			$("#btnSearch").click(function() {
+				selectAlarmRecordList();
+			});
+			
+			$("#btnExcelownload").click(function() {
+				alert("준비 중");
+			});
+			
+			$("#alarmTimeFrom").datepicker({
+				autoclose: true
+		    }).datepicker("setDate", new Date());
+
+			$("#alarmTimeTo").datepicker({
+				autoclose: true
+		    }).datepicker("setDate", new Date());
+		}
+		
+		function initGrid() {
+			$("#grid").jqGrid({
+				datatype: "json",
+			   	colNames: ["구분","내용","일시"],
+			   	colModel: [
+			   		{name:"AlarmType", index:"AlarmType", width:"15%", align:"left"},	// 구분
+			   		{name:"AlarmContents", index:"AlarmContents", width:"70%", align:"left"}, // 내용
+			   		{name:"AlarmTime", index:"AlarmTime", width:"15%", align:"center"}, // 일시
+			   	],
+			   	rowNum: -1,
+			    viewrecords: true,
+			    autowidth: true, 
+			    shrinkToFit: true,
+			    forceFit: false,
+			    height: 600
+			});
+		}
+		
+		function selectAlarmRecordList() {
+			var searchCondition = $(".frmSearchCondition").serializeObject();
+			
+			var param = {};
+			param.alarmTimeFrom = $("#alarmTimeFrom").data("datepicker").getFormattedDate("yyyymmdd");
+			param.alarmTimeTo = $("#alarmTimeTo").data("datepicker").getFormattedDate("yyyymmdd");
+			
+			if(param.alarmTimeFrom > param.alarmTimeTo){
+				alert("조회조건(일시)을 확인하시기 바랍니다.");
+				return;
+			} 
+			
+			$("#grid")
+			.jqGrid("clearGridData", true)
+			.jqGrid("setGridParam", {
+				url: "/htr/selectAlarmRecordList",
+				postData: param,
+			}).trigger("reloadGrid");
+		}
+		
+		/*]]>*/
+		</script>
+	</th:block>
+</body>
+</html>

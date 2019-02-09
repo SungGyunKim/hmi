@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main_layout">
+<head>
+</head>
+<body>
+    <section class="content" layout:fragment="content">
+      <!-- 검색조건 영역 -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-body">
+			  <form role="form" class="form-inline frmSearchCondition">
+                <div class="form-group">
+                  <label class="control-label" for="regDate">일시</label>
+                  <div class="input-group date">
+                    <input type="text" class="form-control input-sm pull-right" id="regDateFrom" name="regDateFrom">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                  </div>
+
+                  <div class="input-group date">
+                    <input type="text" class="form-control input-sm pull-right" id="regDateTo" name="regDateTo">
+                    <div class="input-group-addon">
+                      <i class="fa fa-calendar"></i>
+                    </div>
+                  </div>
+
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="room">숙소동</label>
+                  <select class="form-control input-sm" name="Dong" id="Dong" disabled>
+                    <option value="">-- 선택 --</option>
+                    <option value="B">숙소동-B</option>
+                    <option value="C">숙소동-C</option>
+                  </select>
+                </div>
+                <div class="form-group">
+                  <label class="control-label" for="ho">호실</label>
+                  <select class="form-control input-sm" name="ho" id="ho">
+                  	<option value="">-- 선택 --</option>
+                  </select>
+                </div>
+                <div class="form-group pull-right">
+                  <button type="button" class="btn btn-primary btn-sm" id="btnSearch"><i class="fa fa-search"></i> 검색</button>
+                  <button type="button" class="btn btn-primary btn-sm" id="btnExcelownload"><i class="fa fa-download"></i> 다운로드</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 검색결과 영역 -->
+      <div class="row">
+      	<div class="col-md-12">
+      	  <div class="box box-solid">
+            <div class="box-body">
+				<table id="grid" class="col-md-12"></table>
+            </div>
+      	  </div>
+      	</div>
+      </div>
+    </section>
+    
+	<th:block layout:fragment="content_js">
+		<script th:inline="javascript">
+		/*<![CDATA[*/
+			
+		$(function () {
+			initButton();
+			initGrid();
+		});
+		
+		function initButton() {
+			$("#btnSearch").click(function() {
+				$("#roomTitle").text("숙소동 [ " + $("#room option:selected").text() + " ]");
+				$("#hoTitle").text("호실 [ " + $("#ho option:selected").text() + " ]");
+				selectControlRecordList();
+			});
+			
+			$("#btnExcelownload").click(function() {
+				alert("준비 중");
+			});
+			
+			$("#regDateFrom").datepicker({
+				autoclose: true
+		    }).datepicker("setDate", new Date());
+
+			$("#regDateTo").datepicker({
+				autoclose: true
+		    }).datepicker("setDate", new Date());
+			
+			$("#room").change(function() {
+				var hoInfoList = roomInfo[this.value];
+				
+				makeOption("#ho", hoInfoList, "ho", "name");
+			});
+			$("#room").val("roomB").change();
+		}
+		
+		function initGrid() {
+			$("#grid").jqGrid({
+				datatype: "json",
+			   	colNames: ["객실","난방수온도차","설정온도","난방설정","제어일시"],
+			   	colModel: [
+			   		{name:"Ho", index:"Ho", width:"20%", align:"center"},	// 객실
+			   		{name:"NowTemp", index:"NowTemp", width:"20%", align:"right"}, // 난방수온도차
+			   		{name:"SetTemp", index:"SetTemp", width:"20%", align:"right"}, // 설정온도
+			   		{name:"OnOff", index:"OnOff", width:"25%", align:"center"}, // 난방설정
+			   		{name:"RegDate", index:"RegDate", width:"15%", align:"center"}, // 일시
+			   	],
+			   	rowNum: -1,
+			    viewrecords: true,
+			    autowidth: true, 
+			    shrinkToFit: true,
+			    forceFit: false,
+			    height: 600
+			});
+		}
+		
+		function makeOption(selector, optionMap, valueField, textField) {
+			$(selector).empty();
+			
+			$(selector).append($("<option>").attr("value", "").text("-- 선택 --"));
+			
+			$(optionMap).each(function() {
+				$(selector).append($("<option>").attr("value", this[valueField]).text(this[textField]));
+			});
+		};
+
+		function selectControlRecordList() {
+			var searchCondition = $(".frmSearchCondition").serializeObject();
+			
+			var param = {};
+			param.regDateFrom = $("#regDateFrom").data("datepicker").getFormattedDate("yyyymmdd");
+			param.regDateTo = $("#regDateTo").data("datepicker").getFormattedDate("yyyymmdd");
+
+			if(param.regDateFrom > param.regDateTo){
+				alert("조회조건(일시)을 확인하시기 바랍니다.");
+				return;
+			} 
+			
+			$("#grid")
+			.jqGrid("clearGridData", true)
+			.jqGrid("setGridParam", {
+				url: "/htr/selectControlRecordList",
+				postData: param,
+			}).trigger("reloadGrid");
+		}
+		
+		/*]]>*/
+		</script>
+	</th:block>
+</body>
+</html>

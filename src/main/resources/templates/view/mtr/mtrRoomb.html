@@ -158,19 +158,23 @@
 				datatype: "json",
 			   	colNames: ["구분","전체","1층","2층","3층","4층","5층"],
 			   	colModel: [
-			   		{name:"RegDate", index:"RegDate", width:100, align:"center"}, // 구분
-			   		{name:"Ho", index:"Ho", width:100, align:"center"},	// 전체
-			   		{name:"OnOff", index:"OnOff", width:100, align:"center"}, // 1층
-			   		{name:"InsideTemp", index:"InsideTemp", width:100, align:"right"}, // 2층
-			   		{name:"SetTemp", index:"SetTemp", width:100, align:"right"}, // 3층
-			   		{name:"InHeating", index:"InHeating", width:100, align:"right"}, // 4층
-			   		{name:"OutHeating", index:"OutHeating", width:100, align:"right"}, // 5층
+			   		{name:"Title", index:"Title", width:100, align:"center"}, // 구분
+			   		{name:"FloorSum", index:"FloorSum", width:100, align:"center"},	// 전체
+			   		{name:"Floor1", index:"Floor1", width:100, align:"center"}, // 1층
+			   		{name:"Floor2", index:"Floor2", width:100, align:"right"}, // 2층
+			   		{name:"Floor3", index:"Floor3", width:100, align:"right"}, // 3층
+			   		{name:"Floor4", index:"Floor4", width:100, align:"right"}, // 4층
+			   		{name:"Floor5", index:"Floor5", width:100, align:"right"}, // 5층
 			   	],
 			   	rowNum: -1,
 			    viewrecords: true,
 			    autowidth: true, 
 			    shrinkToFit: true,
-			    forceFit: false
+			    forceFit: false,
+			    height: 47,
+			    onInitGrid: function() {
+					selectRoomBSts();
+			    }
 			});
 		}
 		
@@ -183,6 +187,17 @@
 					$(".modal").modal("show");
 				});
 			});
+		}
+
+		function selectRoomBSts() {
+			var param = {};
+			
+			$("#grid")
+			.jqGrid("clearGridData", true)
+			.jqGrid("setGridParam", {
+				url: "/dmt/selectRoombSts",
+				postData: param,
+			}).trigger("reloadGrid");
 		}
 		
 		/*]]>*/

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main_layout">
+<head>
+</head>
+<body>
+    <section class="content" layout:fragment="content">
+      <!-- 검색조건 영역 -->
+      <div class="row">
+        <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-body">
+			  <form role="form" class="form-inline frmSearchCondition">
+                <div class="form-group">
+                  <label class="control-label" for="Year">년도</label>
+                  <select class="form-control input-sm" name="Year" id="Year">
+                    <option value="">-- 선택 --</option>
+                    <option value="2018">2018</option>
+                    <option value="2019" selected>2019</option>
+                    <option value="2020">2020</option>
+                    <option value="2021">2021</option>
+                    <option value="2022">2022</option>
+                  </select>
+                </div>  
+                <div class="form-group pull-right">
+                  <button type="button" class="btn btn-primary btn-sm" id="btnSearch"><i class="fa fa-search"></i> 검색</button>
+                  <button type="button" class="btn btn-primary btn-sm" id="btnSave"><i class="fa fa-download"></i> 저장</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 검색결과 영역 -->
+      <div class="row">
+      	<div class="col-md-12">
+      	  <div class="box box-solid">
+            <div class="box-body">
+				<table id="grid" class="col-md-12"></table>
+            </div>
+      	  </div>
+      	</div>
+      </div>
+    </section>
+    
+	<th:block layout:fragment="content_js">
+		<script th:inline="javascript">
+		/*<![CDATA[*/
+			
+		$(function () {
+			initButton();
+			initGrid();
+		});
+		
+		function initButton() {
+			$("#btnSearch").click(function() {
+				selectEnergyUseList();
+			});
+			
+			$("#btnSave").click(function() {
+				alert("준비 중");
+			});
+		}
+		
+		function initGrid() {
+			$("#grid").jqGrid({
+				datatype: "json",
+			   	colNames: ["구분","단위","합계","1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+			   	colModel: [
+			   		{name:"Energy_Name", index:"Energy_Name", width:"10%", align:"center"},	// 구분
+			   		{name:"Unit", index:"Unit", width:"10%", align:"center"}, // 단위
+			   		{name:"Year_Sum", index:"Year_Sum", width:"8%", align:"right"}, // 합계
+			   		{name:"Jan", index:"Jan", width:"6%", align:"right"}, // 1월
+			   		{name:"Feb", index:"Feb", width:"6%", align:"right"}, // 2월
+			   		{name:"Mar", index:"Mar", width:"6%", align:"right"}, // 3월
+			   		{name:"Apr", index:"Apr", width:"6%", align:"right"}, // 4월
+			   		{name:"May", index:"May", width:"6%", align:"right"}, // 5월
+			   		{name:"Jun", index:"Jun", width:"6%", align:"right"}, // 6월
+			   		{name:"Jul", index:"Jul", width:"6%", align:"right"}, // 7월
+			   		{name:"Aug", index:"Aug", width:"6%", align:"right"}, // 8월
+			   		{name:"Sep", index:"Sep", width:"6%", align:"right"}, // 9월
+			   		{name:"Oct", index:"Oct", width:"6%", align:"right"}, // 10월
+			   		{name:"Nov", index:"Nov", width:"6%", align:"right"}, // 11월
+			   		{name:"Dec", index:"Dec", width:"6%", align:"right"}, // 12월
+			   	],
+			   	rowNum: -1,
+			    viewrecords: true,
+			    autowidth: true, 
+			    shrinkToFit: true,
+			    forceFit: false,
+			    height: 600
+			});
+		}
+		
+		function selectEnergyUseList() {
+			var searchCondition = $(".frmSearchCondition").serializeObject();
+			
+			var param = {};
+			param.Year = searchCondition.Year;
+			
+			$("#grid")
+			.jqGrid("clearGridData", true)
+			.jqGrid("setGridParam", {
+				url: "/rfi/selectEnergyUseList",
+				postData: param,
+			}).trigger("reloadGrid");
+		}
+		
+		/*]]>*/
+		</script>
+	</th:block>
+</body>
+</html>

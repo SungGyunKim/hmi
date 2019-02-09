@@ -119,16 +119,16 @@
 				datatype: "json",
 			   	colNames: ["일시","객실","난방설정","객실온도","설정온도","공급온도","환수온도","유량순시치","밸브개도율","온도차"],
 			   	colModel: [
-			   		{name:"RegDate", index:"RegDate", width:100, align:"center"}, // 일시
-			   		{name:"Ho", index:"Ho", width:100, align:"center"},	// 객실
-			   		{name:"OnOff", index:"OnOff", width:100, align:"center"}, // 난방설정
-			   		{name:"InsideTemp", index:"InsideTemp", width:100, align:"right"}, // 객실온도
-			   		{name:"SetTemp", index:"SetTemp", width:100, align:"right"}, // 설정온도
-			   		{name:"InHeating", index:"InHeating", width:100, align:"right"}, // 공급온도
-			   		{name:"OutHeating", index:"OutHeating", width:100, align:"right"}, // 환수온도
-			   		{name:"NowFlow", index:"NowFlow", width:100, align:"right"}, // 유량순시치
-			   		{name:"NowControlValue", index:"NowControlValue", width:100, align:"right"}, // 밸브개도율
-			   		{name:"DiffHeating", index:"DiffHeating", width:100, align:"right"} // 온도차(공급온도-환수온도)
+			   		{name:"RegDate", index:"RegDate", width:"17%", align:"center"}, // 일시
+			   		{name:"Ho", index:"Ho", width:"10%", align:"center"},	// 객실
+			   		{name:"OnOff", index:"OnOff", width:"10%", align:"center"}, // 난방설정
+			   		{name:"InsideTemp", index:"InsideTemp", width:"9%", align:"right"}, // 객실온도
+			   		{name:"SetTemp", index:"SetTemp", width:"9%", align:"right"}, // 설정온도
+			   		{name:"InHeating", index:"InHeating", width:"9%", align:"right"}, // 공급온도
+			   		{name:"OutHeating", index:"OutHeating", width:"9%", align:"right"}, // 환수온도
+			   		{name:"NowFlow", index:"NowFlow", width:"9%", align:"right"}, // 유량순시치
+			   		{name:"NowControlValue", index:"NowControlValue", width:"9%", align:"right"}, // 밸브개도율
+			   		{name:"DiffHeating", index:"DiffHeating", width:"9%", align:"right"} // 온도차(공급온도-환수온도)
 			   	],
 			   	rowNum: -1,
 			    viewrecords: true,
@@ -153,7 +153,6 @@
 			
 			var param = {};
 			param.regDate = $("#regDate").data("datepicker").getFormattedDate("yyyymmdd");
-			param.room = param.room;
 			
 			$("#roomTempStsChart").empty();
 			
