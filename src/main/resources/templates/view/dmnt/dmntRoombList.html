@@ -1,6 +1,21 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorator="layout/main_layout">
 <head>
+    <!-- The jQuery library is a prerequisite for all jqSuite products -->
+    <script type="text/ecmascript" src="../../../js/jquery.min.js"></script> 
+    <!-- This is the Javascript file of jqGrid -->   
+    <script type="text/ecmascript" src="../../../js/trirand/src/jquery.jqGrid.js"></script>
+    <!-- This is the localization file of the grid controlling messages, labels, etc.
+    <!-- We support more than 40 localizations -->
+    <script type="text/ecmascript" src="../../../js/trirand/i18n/grid.locale-en.js"></script>
+	
+	<script type="text/javascript" language="javascript" src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <!-- A link to a jQuery UI ThemeRoller theme, more than 22 built-in and many more custom -->
+    <link rel="stylesheet" type="text/css" media="screen" href="../../../css/jquery-ui.css" />
+    <!-- The link to the CSS that the grid needs -->
+    <link rel="stylesheet" type="text/css" media="screen" href="../../../css/trirand/ui.jqgrid.css" />
+    <meta charset="utf-8" />
+    <title>데이터관리-숙소동B</title>
 </head>
 <body>
     <section class="content" layout:fragment="content">
@@ -19,6 +34,7 @@
                     </div>
                   </div>
                 </div>
+<!-- 
                 <div class="form-group">
                   <label class="control-label" for="room">숙소동</label>
                   <select class="form-control input-sm" name="room" id="room" disabled>
@@ -26,7 +42,8 @@
                     <option value="roomB">숙소동-B</option>
                     <option value="roomC">숙소동-C</option>
                   </select>
-                </div>
+                </div> 
+-->
                 <div class="form-group">
                   <label class="control-label" for="ho">호실</label>
                   <select class="form-control input-sm" name="ho" id="ho">
@@ -87,11 +104,13 @@
 		$(function () {
 			initButton();
 			initGrid();
+			
+
 		});
 		
 		function initButton() {
 			$("#btnSearch").click(function() {
-				$("#roomTitle").text("숙소동 [ " + $("#room option:selected").text() + " ]");
+				//$("#roomTitle").text("숙소동 [ " + $("#room option:selected").text() + " ]");
 				$("#hoTitle").text("호실 [ " + $("#ho option:selected").text() + " ]");
 				selectRoomTempSts();
 				selectRoomHoTempSts();
@@ -99,19 +118,23 @@
 			});
 			
 			$("#btnExcelownload").click(function() {
-				alert("준비 중");
+				exportExcel();
 			});
 			
 			$("#regDate").datepicker({
 				autoclose: true
 		    }).datepicker("setDate", new Date());
 			
-			$("#room").change(function() {
-				var hoInfoList = roomInfo[this.value];
+			var hoInfoList = roomInfo['roomB'];
+			
+			makeOption("#ho", hoInfoList, "ho", "name");
+// 			$("#room").change(function() {
+// 				var hoInfoList = roomInfo[this.value];
 				
-				makeOption("#ho", hoInfoList, "ho", "name");
-			});
-			$("#room").val("roomB").change();
+// 				makeOption("#ho", hoInfoList, "ho", "name");
+// 			});
+			
+// 			$("#room").val("roomB").change();
 		}
 		
 		function initGrid() {
@@ -131,6 +154,7 @@
 			   		{name:"DiffHeating", index:"DiffHeating", width:"9%", align:"right"} // 온도차(공급온도-환수온도)
 			   	],
 			   	rowNum: -1,
+			   	loadonce: true,
 			    viewrecords: true,
 			    autowidth: true, 
 			    shrinkToFit: true,
@@ -181,7 +205,7 @@
 			
 			var param = {};
 			param.regDate = $("#regDate").data("datepicker").getFormattedDate("yyyymmdd");
-			param.room = searchCondition.room;
+			// param.room = searchCondition.room;
 			param.ho = searchCondition.ho;
 			
 			$("#roomTempHoStsChart").empty();
@@ -217,6 +241,16 @@
 				url: "/dmt/selectRoombList",
 				postData: param,
 			}).trigger("reloadGrid");
+		}
+		
+		function exportExcel(){
+			$("#grid").jqGrid("exportToExcel",{
+				includeLabels : true,
+				includeGroupHeader : true,
+				includeFooter: true,
+				fileName : "데이터관리_숙소동B.xlsx",
+				maxlength : 40 // maxlength for visible string data 
+			});
 		}
 		
 		/*]]>*/
