@@ -19,6 +19,9 @@ public class HmiFactorInfo {
 	@Id
 	private int fId;
 	
+	@Column(nullable = false, length = 4, columnDefinition="CHAR(4)")
+	private String year;
+	
 	@Column(nullable = false)
 	private int value;
 	
@@ -35,9 +38,10 @@ public class HmiFactorInfo {
 	private Timestamp regDate;
 	
 	@Builder
-	public HmiFactorInfo(int fId, int value, String name, String type, String kind, Timestamp regDate) {
+	public HmiFactorInfo(int fId, String year, int value, String name, String type, String kind, Timestamp regDate) {
 		super();
 		this.fId = fId;
+		this.year = year;
 		this.value = value;
 		this.name = name;
 		this.type = type;

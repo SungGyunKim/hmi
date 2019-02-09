@@ -19,6 +19,9 @@ public class HmiGoalInfo {
 	@Id
 	private int gId;
 	
+	@Column(nullable = false, length = 4, columnDefinition="CHAR(4)")
+	private String year;
+	
 	@Column(nullable = false, length = 20)
 	private String name;
 	
@@ -32,9 +35,10 @@ public class HmiGoalInfo {
 	private Timestamp regDate;
 	
 	@Builder
-	public HmiGoalInfo(int gId, String name, String unit, int value, Timestamp regDate) {
+	public HmiGoalInfo(int gId, String year, String name, String unit, int value, Timestamp regDate) {
 		super();
 		this.gId = gId;
+		this.year = year;
 		this.name = name;
 		this.unit = unit;
 		this.value = value;
