@@ -25,8 +25,8 @@ public class HmiAlarmRecordService {
         return hmiAlarmRecordRepository.save(dto.toEntity()).getNo();
     }
 	
-	public List<Map<String, Object>> selectControlRecordList(Map<String, Object> param) {
-		return hmiAlarmRecordMapper.selectHmiAlarmRecordList(param);
+	public List<Map<String, Object>> selectAlarmRecordList(Map<String, Object> param) {
+		return hmiAlarmRecordMapper.selectAlarmRecordList(param);
 	}
 	
 }

@@ -25,8 +25,8 @@ public class HmiGoalInfoService {
         return hmiGoalInfoRepository.save(dto.toEntity()).getGId();
     }
 	
-	public List<Map<String, Object>> selectControlRecordList(Map<String, Object> param) {
-		return hmiGoalInfoMapper.selectHmiGoalInfoList(param);
+	public List<Map<String, Object>> selectGoalInfoList(Map<String, Object> param) {
+		return hmiGoalInfoMapper.selectGoalInfoList(param);
 	}
 	
 }

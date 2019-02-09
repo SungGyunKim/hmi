@@ -26,7 +26,7 @@ public class HmiControlRecordService {
     }
 	
 	public List<Map<String, Object>> selectControlRecordList(Map<String, Object> param) {
-		return hmiControlRecordMapper.selectHmiControlRecordList(param);
+		return hmiControlRecordMapper.selectControlRecordList(param);
 	}
 	
 }

@@ -25,8 +25,8 @@ public class HmiFactorInfoService {
         return hmiFactorInfoRepository.save(dto.toEntity()).getFId();
     }
 	
-	public List<Map<String, Object>> selectControlRecordList(Map<String, Object> param) {
-		return hmiFactorInfoMapper.selectHmiFactorInfoList(param);
+	public List<Map<String, Object>> selectFactorInfoList(Map<String, Object> param) {
+		return hmiFactorInfoMapper.selectFactorInfoList(param);
 	}
 	
 }

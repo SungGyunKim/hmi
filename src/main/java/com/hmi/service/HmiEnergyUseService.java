@@ -25,8 +25,8 @@ public class HmiEnergyUseService {
         return hmiEnergyUseRepository.save(dto.toEntity()).getEuId();
     }
 	
-	public List<Map<String, Object>> selectControlRecordList(Map<String, Object> param) {
-		return hmiEnergyUseMapper.selectHmiEnergyUseList(param);
+	public List<Map<String, Object>> selectEnergyUseList(Map<String, Object> param) {
+		return hmiEnergyUseMapper.selectEnergyUseList(param);
 	}
 	
 }
