@@ -17,5 +17,68 @@
 		FROM
 			HMI_CONTROL_RECORD
     </select>
+    
+    <select id="selectEnergyUseList" resultType="hashmap">
+		Select 	Eu_Id,
+		       	Year,
+		       	Energy_Name,
+		       	Unit,
+		       	Jan,
+				Feb,
+				Mar,
+				Apr,
+				May,
+				Jun,
+				Jul,
+				Aug,
+				Sep,
+				Oct,
+				Nov,
+				`Dec`,
+				(Jan + Feb + Mar + Apr + May + Jun + Jul + Aug + Sep + Oct + Nov + `Dec`) Year_Sum
+		from   energy_use		 
+		where  Year = #{Year}
+		order by case Energy_Name when '전력' then 1
+		               when '경유' then 2
+							when '도시가스' then 3
+							when '기타' then 4
+							else 9 end
+	</select>
+	
+	<insert id="insertEnergyUse">
+		insert into energy_use
+			(Energy_Name,
+		       	Unit,
+		       	Year,
+		       	Jan,
+				Feb,
+				Mar,
+				Apr,
+				May,
+				Jun,
+				Jul,
+				Aug,
+				Sep,
+				Oct,
+				Nov,
+				`Dec`)
+			values(
+				#{Energy_Name},
+		       	#{Unit},
+		       	#{Year},
+		       	#{Jan},
+				#{Feb},
+				#{Mar},
+				#{Apr},
+				#{May},
+				#{Jun},
+				#{Jul},
+				#{Aug},
+				#{Sep},
+				#{Oct},
+				#{Nov},
+				#{Dec}
+			)	
+	</insert>
 
 </mapper>

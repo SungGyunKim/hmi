@@ -18,4 +18,38 @@
 			HMI_CONTROL_RECORD
     </select>
 
+	<select id="selectFactorInfoList" resultType="hashmap">
+		SELECT
+			F_Id,
+			Year,
+			Name,
+			Type,
+			Kind,
+			Value,
+			DATE_FORMAT(RegDate, '%Y-%m-%d %H:%i:%s') RegDate
+		FROM
+			Factor_Info
+		WHERE
+			Year = #{Year}
+		order by RegDate		
+    </select>
+
+	<insert id="insertFactorInfo">
+		insert into Factor_Info
+				(Year,
+				Name,
+				Type,
+				Kind,
+				Value
+				RegDate)
+			values(
+				#{Year},
+		       	#{Name},
+		       	#{Kind},
+		       	#{Unit},
+		       	#{Value},
+		       	DATE_SUB(NOW(), INTERVAL 1 HOUR) 
+			)
+	</insert>
+
 </mapper>

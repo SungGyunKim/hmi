@@ -2,52 +2,109 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hmi.mapper.HmiRoombMapper">
 
-	<select id="selectRoomList" resultType="hashmap">
+	<select id="selectRoombList" resultType="hashmap">
 		SELECT
-			No,
-			Floor,
-			Ho,
-			InsideTemp,
-			SetTemp,
-			InHeating,
-			OutHeating,
-			NowControlValue,
-			SetControlValue,
-			DATE_FORMAT(RegDate, '%Y-%m-%d %H:%i:%s') AS RegDate,
-			NowFlow,
-			TotalFlow,
-			(CASE WHEN OnOff = 0 THEN 'OFF' WHEN OnOff = 1 THEN 'ON' END) AS OnOff,
-			TotalHeat,
-			DATE_FORMAT(SetDate, '%Y-%m-%d %H:%i:%s') AS SetDate,
-			InHeating - OutHeating AS DiffHeating
+			A.No,
+			A.Floor,
+			A.Ho,
+			A.InsideTemp,
+			A.SetTemp,
+			A.InHeating,
+			A.OutHeating,
+			A.NowControlValue,
+			A.SetControlValue,
+			DATE_FORMAT(A.RegDate, '%Y-%m-%d %H:%i:%s') AS RegDate,
+			A.NowFlow,
+			A.TotalFlow,
+			(CASE WHEN A.OnOff = 0 THEN 'OFF' WHEN A.OnOff = 1 THEN 'ON' END) AS OnOff,
+			A.TotalHeat,
+			DATE_FORMAT(A.SetDate, '%Y-%m-%d %H:%i:%s') AS SetDate,
+			A.InHeating - A.OutHeating AS DiffHeating
 		FROM
-			RoomA
-		<where>
-			<if test="ho != null and ho != ''">
-			AND Ho = #{ho}
-			</if>
-			<if test="regDate != null and regDate != ''">
-			AND date_format(RegDate,'%Y%m%d') = #{regDate}
-			</if>
-		</where>
+			RoomB A
+		WHERE A.no = (select max(B.no)
+		               from   RoomB B
+							where  A.Ho = B.Ho
+							group by B.Ho)	
+		<if test="ho != null and ho != ''">
+		AND A.Ho = #{ho}
+		</if>
+		<if test="regDate != null and regDate != ''">
+		AND date_format(A.SetDate,'%Y%m%d') = #{regDate}
+		</if>
 		ORDER BY
-			RegDate DESC
+			A.SetDate DESC
     </select>
 
-	<select id="selectRoomTempSts" resultType="hashmap">
+	<select id="selectRoombTempSts" resultType="hashmap">
 	    SELECT
-			date_format(RegDate,'%H') as HH,
+			date_format(SetDate,'%H') as HH,
 			round(avg(InsideTemp), 1) as InsideTemp,
 			round(avg(SetTemp), 1) as SetTemp
 		FROM
-			RoomA
+			RoomB
 		WHERE
-			date_format(RegDate,'%Y%m%d') = #{regDate}
+			date_format(SetDate,'%Y%m%d') = #{regDate}
 			<if test="ho != null and ho != ''">
 			AND Ho = #{ho}
 			</if>
 		GROUP BY
-			date_format(RegDate,'%Y%m%d%H')
+			date_format(SetDate,'%Y%m%d%H')
     </select>
-
+    
+    <select id="selectRoombSts" resultType="hashmap">
+		SELECT '열량' Title,
+		       ROUND(SUM(A.TotalHeat), 1) FloorSum,
+		       ROUND(SUM(CASE WHEN A.floor = 1 THEN A.TotalHeat ELSE 0 END), 1) Floor1,
+		       ROUND(SUM(CASE WHEN A.floor = 2 THEN A.TotalHeat ELSE 0 END), 1) Floor2,
+		       ROUND(SUM(CASE WHEN A.floor = 3 THEN A.TotalHeat ELSE 0 END), 1) Floor3,
+		       ROUND(SUM(CASE WHEN A.floor = 4 THEN A.TotalHeat ELSE 0 END), 1) Floor4,
+		       ROUND(SUM(CASE WHEN A.floor = 5 THEN A.TotalHeat ELSE 0 END), 1) Floor5
+		FROM   RoomB A
+		where  A.no = (select max(B.no)
+		               from   RoomB B
+							where  A.Ho = B.Ho
+							group by B.Ho)
+		UNION ALL
+		SELECT '유량' Title,
+		       ROUND(SUM(A.TotalFlow), 1) FloorSum,
+		       ROUND(SUM(CASE WHEN A.floor = 1 THEN A.TotalFlow ELSE 0 END), 1) Floor1,
+		       ROUND(SUM(CASE WHEN A.floor = 2 THEN A.TotalFlow ELSE 0 END), 1) Floor2,
+		       ROUND(SUM(CASE WHEN A.floor = 3 THEN A.TotalFlow ELSE 0 END), 1) Floor3,
+		       ROUND(SUM(CASE WHEN A.floor = 4 THEN A.TotalFlow ELSE 0 END), 1) Floor4,
+		       ROUND(SUM(CASE WHEN A.floor = 5 THEN A.TotalFlow ELSE 0 END), 1) Floor5
+		FROM   RoomB A
+		where  A.no = (select max(B.no)
+		               from   RoomB B
+							where  A.Ho = B.Ho
+							group by B.Ho)
+    </select>
+    
+	<select id="selectRoomb" resultType="hashmap">
+		SELECT
+			A.No,
+			A.Floor,
+			A.Ho,
+			A.InsideTemp,
+			A.SetTemp,
+			A.InHeating,
+			A.OutHeating,
+			A.NowControlValue,
+			A.SetControlValue,
+			DATE_FORMAT(A.RegDate, '%Y-%m-%d %H:%i:%s') AS RegDate,
+			A.NowFlow,
+			A.TotalFlow,
+			(CASE WHEN A.OnOff = 0 THEN 'OFF' WHEN A.OnOff = 1 THEN 'ON' END) AS OnOff,
+			A.TotalHeat,
+			DATE_FORMAT(A.SetDate, '%Y-%m-%d %H:%i:%s') AS SetDate,
+			A.InHeating - A.OutHeating AS DiffHeating
+		FROM
+			RoomB A
+		WHERE A.no = (select max(B.no)
+		               from   RoomB B
+							where  A.Ho = B.Ho
+							group by B.Ho)	
+		AND A.Ho = #{ho}
+    </select>
+    
 </mapper>

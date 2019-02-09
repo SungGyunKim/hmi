@@ -17,5 +17,17 @@
 		FROM
 			HMI_CONTROL_RECORD
     </select>
+    
+    <select id="selectControlRecordList" resultType="hashmap">
+		Select No, Dong, Floor, Ho, NowTemp, SetTemp, NowControlValue, SetControlValue, 
+		       DATE_FORMAT(RegDate, '%Y-%m-%d %H:%i:%s') RegDate, 
+		       (CASE WHEN OnOff = 0 THEN 'OFF' WHEN OnOff = 1 THEN 'ON' END) OnOff
+		from   ControlRecord
+		where  date_format(RegDate,'%Y%m%d') between #{regDateFrom} and #{regDateTo}
+		<if test="Dong != null and Dong != ''">
+		AND Dong = #{Dong}
+		</if>
+		order by No, Dong, Floor, Ho
+    </select>
 
 </mapper>

@@ -18,4 +18,15 @@
 			HMI_CONTROL_RECORD
     </select>
 
+    <select id="selectAlarmRecordList" resultType="hashmap">
+		Select No, IsRead, DATE_FORMAT(AlarmTime, '%Y-%m-%d %H:%i:%s') AlarmTime, AlarmContents, AlarmPlace,
+		       '네트워크' AlarmType  
+		from   AlarmRecord
+		where  date_format(AlarmTime,'%Y%m%d') between #{alarmTimeFrom} and #{alarmTimeTo}
+		<if test="IsRead != null and IsRead != ''">
+		AND IsRead = #{IsRead}
+		</if>
+		order by No, AlarmTime, IsRead
+    </select>
+
 </mapper>

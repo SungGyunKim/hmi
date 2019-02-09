@@ -18,4 +18,35 @@
 			HMI_CONTROL_RECORD
     </select>
 
+	<select id="selectGoalInfoList" resultType="hashmap">
+		SELECT
+			G_Id,
+			Year,
+			Name,
+			Unit,
+			Value,
+			DATE_FORMAT(RegDate, '%Y-%m-%d %H:%i:%s') RegDate
+		FROM
+			Goal_Info
+		WHERE
+			Year = #{Year}
+		order by RegDate		
+    </select>
+
+	<insert id="insertEnergyUse">
+		insert into Goal_Info
+				(Year,
+		       	Name,
+		       	Unit,
+		       	Value,
+				RegDate)
+			values(
+				#{Year},
+		       	#{Name},
+		       	#{Unit},
+		       	#{Value},
+		       	DATE_SUB(NOW(), INTERVAL 1 HOUR) 
+			)
+	</insert>
+	
 </mapper>
