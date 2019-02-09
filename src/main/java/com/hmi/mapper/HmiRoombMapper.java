@@ -8,8 +8,11 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface HmiRoombMapper {
 	
-	public List<Map<String, Object>> selectRoomList(Map<String, Object> param);
+	public List<Map<String, Object>> selectRoombList(Map<String, Object> param);
 
-	public List<Map<String, Object>> selectRoomTempSts(Map<String, Object> param);
+	public List<Map<String, Object>> selectRoombTempSts(Map<String, Object> param);
 	
+	public List<Map<String, Object>> selectRoombSts(Map<String, Object> param);
+	
+	public List<Map<String, Object>> selectRoomb(Map<String, Object> param);
 }

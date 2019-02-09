@@ -10,4 +10,5 @@ public interface HmiAlarmRecordMapper {
 	
 	public List<Map<String, Object>> selectHmiAlarmRecordList(Map<String, Object> param);
 	
+	public List<Map<String, Object>> selectAlarmRecordList(Map<String, Object> param);
 }

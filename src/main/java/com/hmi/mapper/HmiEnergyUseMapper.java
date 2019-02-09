@@ -10,4 +10,5 @@ public interface HmiEnergyUseMapper {
 	
 	public List<Map<String, Object>> selectHmiEnergyUseList(Map<String, Object> param);
 	
+	public List<Map<String, Object>> selectEnergyUseList(Map<String, Object> param);
 }

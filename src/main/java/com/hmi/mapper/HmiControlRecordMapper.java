@@ -10,4 +10,6 @@ public interface HmiControlRecordMapper {
 	
 	public List<Map<String, Object>> selectHmiControlRecordList(Map<String, Object> param);
 	
+	public List<Map<String, Object>> selectControlRecordList(Map<String, Object> param);
+	
 }
