@@ -14,6 +14,7 @@ import lombok.Setter;
 public class HmiFactorInfoSaveRequestDto {
 	
 	private int fId;
+	private String year;
 	private int value;
 	private String name;
 	private String type;
@@ -23,6 +24,7 @@ public class HmiFactorInfoSaveRequestDto {
 	public HmiFactorInfo toEntity() {
 		return HmiFactorInfo.builder()
 				.fId(fId)
+				.year(year)
 				.value(value)
 				.name(name)
 				.type(type)

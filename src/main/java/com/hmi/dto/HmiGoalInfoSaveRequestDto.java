@@ -14,6 +14,7 @@ import lombok.Setter;
 public class HmiGoalInfoSaveRequestDto {
 	
 	private int gId;
+	private String year;
 	private String name;
 	private String unit;
 	private int value;
@@ -22,6 +23,7 @@ public class HmiGoalInfoSaveRequestDto {
 	public HmiGoalInfo toEntity() {
 		return HmiGoalInfo.builder()
 				.gId(gId)
+				.year(year)
 				.name(name)
 				.unit(unit)
 				.value(value)
