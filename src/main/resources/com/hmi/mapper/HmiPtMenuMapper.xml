@@ -21,18 +21,22 @@
     </select>
     
 	<select id="selectHmiPtMenuTreeList" resultType="hashmap">
-		WITH RECURSIVE CTE (MENU_NO, MENU_NM, UPPER_MENU_NO, URL) AS (
+		WITH RECURSIVE CTE (LVL, PATH, MENU_NO, MENU_NM, UPPER_MENU_NO, URL) AS (
 			SELECT
+				1 AS LVL,
+				MENU_NM AS PATH,
 				MENU_NO,
 				MENU_NM,
 				UPPER_MENU_NO,
 				URL
 			FROM
-				PT_MENU
+				PT_MENU T
 		 	WHERE
-		 		UPPER_MENU_NO = #{upperMenuNo}
+		 		MENU_NO = #{sMenuNo}
 			UNION ALL
 			SELECT
+				LVL + 1,
+				CONCAT(CTE.PATH, ' > ', R.MENU_NM) AS PATH,
 				R.MENU_NO,
 				R.MENU_NM,
 				R.UPPER_MENU_NO,
@@ -40,7 +44,13 @@
 			FROM
 				PT_MENU R INNER JOIN CTE ON R.UPPER_MENU_NO = CTE.MENU_NO
 		)
-		SELECT * FROM CTE ORDER BY MENU_NO ASC
+		SELECT
+			CTE.*,
+			(SELECT COUNT(MENU_NO) FROM PT_MENU WHERE UPPER_MENU_NO = CTE.MENU_NO) AS CHILD_MENU_CNT
+		FROM
+			CTE
+		ORDER BY
+			MENU_NO ASC
     </select>
 
 </mapper>
