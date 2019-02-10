@@ -43,12 +43,28 @@
 				RegDate)
 			values(
 				#{Dong}, 
-				#{Floor}, 
-				#{Ho}, 
-				#{NowTemp}, 
-				#{SetTemp}, 
-				#{NowControlValue}, 
-				#{SetControlValue},
+				substr(#{Ho}, 1, 1), 
+				#{Ho},  	
+				nvl((select a.insideTemp
+					from   RoomB a
+					where  a.No = (select max(b.No) 
+               						from RoomB b
+									where a.Ho = b.Ho )
+					and    a.Ho = #{Ho}), 0), 
+				case #{OnOff} when '0' then 0 
+							  else  case #{grpTempKey} when 'SetTemp' then #{grpTempValue}
+							                           else 0 end
+				  end, 
+				nvl((select a.NowControlValue
+					from   RoomB a
+					where  a.No = (select max(b.No) 
+               						from RoomB b
+									where a.Ho = b.Ho )
+					and    a.Ho = #{Ho}), 0), 
+				case #{OnOff} when '0' then 0 
+							  else  case #{grpTempKey} when 'DiffTemp' then #{grpTempValue}
+							                           else 0 end
+				  end, 
 				#{OnOff},
 		       	DATE_SUB(NOW(), INTERVAL 1 HOUR) 
 			)

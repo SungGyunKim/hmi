@@ -100,10 +100,9 @@
 				$("#hoTitle").text("호실 [ " + $("#ho option:selected").text() + " ]");
 				
 				var searchCondition = $(".frmSearchCondition").serializeObject();
-				var ho = searchCondition.ho;
-				
-				if(ho == "" || ho == null){
-					alert("호실을 확인하시기 바랍니다.");
+
+				if(!searchCondition.ho){	
+					alert("선택된 호실이 없습니다.");
 					return;
 				}
 

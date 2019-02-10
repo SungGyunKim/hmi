@@ -12,4 +12,6 @@ public interface HmiControlRecordMapper {
 	
 	public List<Map<String, Object>> selectControlRecordList(Map<String, Object> param);
 	
+	public void insertControlRecord(Map<String, Object> param);
+	
 }

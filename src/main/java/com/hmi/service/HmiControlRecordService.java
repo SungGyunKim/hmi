@@ -29,4 +29,11 @@ public class HmiControlRecordService {
 		return hmiControlRecordMapper.selectControlRecordList(param);
 	}
 	
+	@Transactional
+	public void insertControlRecord(Map<String, Object> param, List<Object> hoList) {
+		for (Object ho : hoList) {
+			param.put("Ho", ho);
+			hmiControlRecordMapper.insertControlRecord(param);
+		}
+	}
 }

@@ -40,8 +40,12 @@
 			border-color: red !important;
 		}
 		
+		.onoffBC {
+			background-color: #08298A;
+			color:#FFFF00;
+		}
 	</style>
-</head>
+</head> 	
 <body>
     <section class="content" layout:fragment="content">
       <!-- 검색조건 영역 -->
@@ -87,7 +91,8 @@
 						</div>
 						<div class="ho-form-group">
 							<label for="colFormLabelSm">난방</label>
-							<input type="checkbox" id="OnOff" name="OnOff" checked disabled data-toggle="toggle" data-size="mini" data-width="37">
+							<input type="text" id=OnOff name="OnOff" disabled="disabled">
+							<!--  <input type="checkbox" id="OnOff" name="OnOff" disabled data-toggle="toggle" data-size="mini" data-width="37"> -->
 						</div>
 					</div>
 				</div>
@@ -226,6 +231,10 @@
 	            		$(".ho"+item.Ho).find("#InsideTemp").val(item.InsideTemp);
 	            		$(".ho"+item.Ho).find("#SetTemp").val(item.SetTemp);
 	            		$(".ho"+item.Ho).find("#InHeating").val(item.InHeating);
+	            		$(".ho"+item.Ho).find("#OnOff").val(item.OnOff);
+	            		
+	            		$(".ho"+item.Ho).find("#OnOff").addClass(item.OnOff == "ON" ? "onoffBC" : "");
+	            		
 	            		//$(".ho"+item.Ho).find("#OnOff").prop("checked", item.OnOff == "ON" ? true : false).change();
 	            		//$(".ho"+item.Ho).find("#aaaaa").bootstrapToggle(item.OnOff.toLowerCase());
 	            	}

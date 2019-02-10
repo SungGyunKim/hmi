@@ -146,6 +146,7 @@
 		      	</div>
 		      	<div style="height: 20px;"></div>
 		      	<div style="text-align: right;">
+		      		<input type="hidden" name="Dong" value="B">
 		      		<div>
 		      			<div class="templeftContainer">
 		      				<input type="radio" name="grpTempKey" class="flat-red" id="DiffTemp" value="DiffTemp" checked>
@@ -181,7 +182,7 @@
 		      				<label style="margin-left: 23px;">난방</label>
 		      			</div>
 		      			<div class="tempRightContainer">
-		      				<input type="checkbox" name="onOff" data-toggle="toggle" data-size="mini">
+		      				<input type="checkbox" name="OnOff" checked data-toggle="toggle" data-size="mini">
 		      			</div>
 		      		</div>
 		      	</div>
@@ -225,7 +226,7 @@
 				dataControlConfig.hoList = [dataControlConfig.hoList];
 			}
 			
-			dataControlConfig.onOff = dataControlConfig.onOff ? "1" : "0";
+			dataControlConfig.OnOff = dataControlConfig.OnOff ? "1" : "0";
 			
 			$.ajax({ 
                 type: "POST", 
