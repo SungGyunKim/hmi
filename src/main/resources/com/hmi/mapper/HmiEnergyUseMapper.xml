@@ -81,4 +81,29 @@
 			)	
 	</insert>
 
+	<update id="updateEnergyUse">
+		update energy_use
+		set Energy_Name = #{Energy_Name},
+		    Unit = #{Unit},
+		    Year = #{Year},
+		    Jan = #{Jan},
+			Feb = #{Feb},
+			Mar = #{Mar},
+			Apr = #{Apr},
+			May = #{May},
+			Jun = #{Jun},
+			Jul = #{Jul},
+			Aug = #{Aug},
+			Sep = #{Sep},
+			Oct = #{Oct},
+			Nov = #{Nov},
+			`Dec` = #{Dec}
+		where Eu_Id = #{Eu_Id}	
+	</update>
+	
+	<delete id="deleteEnergyUse">
+		delete from energy_use
+		where Eu_Id = #{Eu_Id}	
+	</delete>
+
 </mapper>

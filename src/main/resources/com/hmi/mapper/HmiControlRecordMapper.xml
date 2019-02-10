@@ -30,4 +30,28 @@
 		order by No, Dong, Floor, Ho
     </select>
 
+	<insert id="insertControlRecord">
+		insert into ControlRecord
+				(Dong, 
+				Floor, 
+				Ho, 
+				NowTemp, 
+				SetTemp, 
+				NowControlValue, 
+				SetControlValue,
+				OnOff,
+				RegDate)
+			values(
+				#{Dong}, 
+				#{Floor}, 
+				#{Ho}, 
+				#{NowTemp}, 
+				#{SetTemp}, 
+				#{NowControlValue}, 
+				#{SetControlValue},
+				#{OnOff},
+		       	DATE_SUB(NOW(), INTERVAL 1 HOUR) 
+			)
+	</insert>
+
 </mapper>

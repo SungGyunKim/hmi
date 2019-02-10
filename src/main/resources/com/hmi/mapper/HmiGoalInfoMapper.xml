@@ -33,7 +33,7 @@
 		order by RegDate		
     </select>
 
-	<insert id="insertEnergyUse">
+	<insert id="insertGoalInfo">
 		insert into Goal_Info
 				(Year,
 		       	Name,
@@ -48,5 +48,20 @@
 		       	DATE_SUB(NOW(), INTERVAL 1 HOUR) 
 			)
 	</insert>
+	
+	<update id="updateGoalInfo">
+		update Goal_Info
+		set		Year = #{Year},
+		       	Name = #{Name},
+		       	Unit = #{Unit},
+		       	Value = #{Value},
+				RegDate = DATE_SUB(NOW(), INTERVAL 1 HOUR) 
+		where G_Id = #{G_Id}
+	</update>
+
+	<delete id="deleteGoalInfo">
+		delete from Goal_Info
+		where G_Id = #{G_Id}
+	</delete>
 	
 </mapper>

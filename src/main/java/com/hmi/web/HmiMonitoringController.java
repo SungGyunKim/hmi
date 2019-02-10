@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.hmi.service.HmiRoombService;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 @AllArgsConstructor
 @RestController
 public class HmiMonitoringController {
+	
+	private HmiRoombService hmiRoombService;
 	
 	@PostMapping("/mtr/mtrRoombBatchControl")
 	public void mtrRoombBatchControl(@RequestParam Map<String, Object> param, @RequestParam(value="hoList[]") List<Object> hoList) {
@@ -24,8 +28,9 @@ public class HmiMonitoringController {
 	}
 	
 	@GetMapping("/mtr/selectRoomb")
-	public void selectRoomb(@RequestParam Map<String, Object> param) {
+	public List<Map<String, Object>> selectRoomb(@RequestParam Map<String, Object> param) {
 		log.debug(param.toString());
+		return hmiRoombService.selectRoomb(param);
 		// TODO
 	}
 
