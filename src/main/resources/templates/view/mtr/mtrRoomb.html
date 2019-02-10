@@ -155,7 +155,7 @@
 		
 		function initGrid() {
 			$("#grid").jqGrid({
-				datatype: "json",
+				datatype: "local",
 			   	colNames: ["구분","전체","1층","2층","3층","4층","5층"],
 			   	colModel: [
 			   		{name:"Title", index:"Title", width:100, align:"center"}, // 구분
@@ -195,6 +195,7 @@
 			$("#grid")
 			.jqGrid("clearGridData", true)
 			.jqGrid("setGridParam", {
+				datatype: "json",
 				url: "/dmt/selectRoombSts",
 				postData: param,
 			}).trigger("reloadGrid");

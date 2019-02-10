@@ -125,7 +125,7 @@
 		
 		function initGrid() {
 			$("#grid").jqGrid({
-				datatype: "json",
+				datatype: "local",
 			   	colNames: ["일시","객실","난방설정","객실온도","설정온도","공급온도","환수온도","유량순시치","밸브개도율","온도차"],
 			   	colModel: [
 			   		{name:"RegDate", index:"RegDate", width:"17%", align:"center"}, // 일시
@@ -224,6 +224,7 @@
 			$("#grid")
 			.jqGrid("clearGridData", true)
 			.jqGrid("setGridParam", {
+				datatype: "json",
 				url: "/dmt/selectRoombList",
 				postData: param,
 			}).trigger("reloadGrid");

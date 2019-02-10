@@ -63,7 +63,7 @@
 		
 		function initGrid() {
 			$("#grid").jqGrid({
-				datatype: "json",
+				datatype: "local",
 			   	colNames: ["구분","종류","설정값","등록일시"],
 			   	colModel: [
 			   		{name:"Type", index:"Type", width:"30%", align:"center"},	// 구분
@@ -89,6 +89,7 @@
 			$("#grid")
 			.jqGrid("clearGridData", true)
 			.jqGrid("setGridParam", {
+				datatype: "json",
 				url: "/rfi/selectFactorInfoList",
 				postData: param,
 			}).trigger("reloadGrid");

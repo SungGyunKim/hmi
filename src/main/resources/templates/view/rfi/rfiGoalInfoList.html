@@ -63,7 +63,7 @@
 		
 		function initGrid() {
 			$("#grid").jqGrid({
-				datatype: "json",
+				datatype: "local",
 			   	colNames: ["종류","목표량","단위","등록일시"],
 			   	colModel: [
 			   		{name:"Name", index:"Name", width:"30%", align:"center"},	// 종류
@@ -89,6 +89,7 @@
 			$("#grid")
 			.jqGrid("clearGridData", true)
 			.jqGrid("setGridParam", {
+				datatype: "json",
 				url: "/rfi/selectGoalInfoList",
 				postData: param,
 			}).trigger("reloadGrid");
