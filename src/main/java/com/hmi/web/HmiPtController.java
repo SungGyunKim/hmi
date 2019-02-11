@@ -18,16 +18,6 @@ public class HmiPtController {
 	
 	private HmiPtMenuService hmiPtMenuService;
 	
-	@GetMapping("/dmnt/dmntRoombList")
-    public String main() {
-        return "view/dmnt/dmntRoombList";
-    }
-	
-	@GetMapping("/mtr/mtrRoomb")
-    public String mtrRooma() {
-        return "view/mtr/mtrRoomb";
-    }
-	
 	@GetMapping("/mtr/mtrRoombBatchControlPopup")
     public String mtrRoombBatchControlPopup() {
         return "view/mtr/mtrRoombBatchControlPopup";
@@ -38,35 +28,19 @@ public class HmiPtController {
         return "view/mtr/mtrRoombHoInfoPopup";
     }
 
-	@GetMapping("/htr/htrControlRecordList")
-    public String htrControlRecordList() {
-        return "view/htr/htrControlRecordList";
-    }
-	
-	@GetMapping("/htr/htrAlarmRecordList")
-    public String htrAlarmRecordList() {
-        return "view/htr/htrAlarmRecordList";
-    }
-
-	@GetMapping("/rfi/rfiEnergyUseList")
-    public String rfiEnergyUseList() {
-        return "view/rfi/rfiEnergyUseList";
-    }
-
-	@GetMapping("/rfi/rfiGoalInfoList")
-    public String rfiGoalInfoList() {
-        return "view/rfi/rfiGoalInfoList";
-    }
-	
-	@GetMapping("/rfi/rfiFactorInfoList")
-    public String rfiFactorInfoList() {
-        return "view/rfi/rfiFactorInfoList";
-    }
-
 	@GetMapping("/menu")
     public String menu(@RequestParam Map<String, Object> param, Model model) {
-		List<Map<String, Object>> menuList = hmiPtMenuService.selectHmiPtMenuList(param);
-        return "view/dmnt/dmntRoomaList";
+		String view = "";
+		List<Map<String, Object>> menu = hmiPtMenuService.selectHmiPtMenuTreeList(param);
+		
+		if(menu.size() == 1) {
+			view = menu.get(0).get("URL").toString();
+			model.addAttribute("menu", menu.get(0));
+		} else {
+			// 없는 메뉴
+		}
+		
+        return view;
     }
 	
 }

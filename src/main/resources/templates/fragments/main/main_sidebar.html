@@ -35,7 +35,7 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li class="active"><a href="/mtr/mtrRoomb"><i class="fa fa-circle-o"></i> 숙소B</a></li>
+                <li th:classappend="${menu.MENU_NO == '010301'} ? 'active' : ''"><a href="/menu?menuNo=010301"><i class="fa fa-circle-o"></i> 숙소B</a></li>
                 <li><a href="#"><i class="fa fa-circle-o"></i> 숙소C</a></li>
               </ul>
             </li>
@@ -68,7 +68,7 @@
                 </span>
               </a>
               <ul class="treeview-menu">
-                <li><a href="/dmnt/dmntRoombList"><i class="fa fa-circle-o"></i> 숙소B</a></li>
+                <li th:classappend="${menu.MENU_NO == '020301'} ? 'active' : ''"><a href="/menu?menuNo=020301"><i class="fa fa-circle-o"></i> 숙소B</a></li>
                 <li><a href="#"><i class="fa fa-circle-o"></i> 숙소C</a></li>
               </ul>
             </li>
@@ -83,8 +83,8 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/htr/htrControlRecordList"><i class="fa fa-circle-o"></i> 제어이력</a></li>
-            <li><a href="/htr/htrAlarmRecordList"><i class="fa fa-circle-o"></i> 알람이력</a></li>
+          	<li th:classappend="${menu.MENU_NO == '030100'} ? 'active' : ''"><a href="/menu?menuNo=030100"><i class="fa fa-circle-o"></i> 제어이력</a></li>
+          	<li th:classappend="${menu.MENU_NO == '030200'} ? 'active' : ''"><a href="/menu?menuNo=030200"><i class="fa fa-circle-o"></i> 알람이력</a></li>
           </ul>
         </li>
         <!-- ################################### 기준정보 ################################### -->
@@ -96,9 +96,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="/rfi/rfiEnergyUseList"><i class="fa fa-circle-o"></i> 사용량관리</a></li>
-            <li><a href="/rfi/rfiGoalInfoList"><i class="fa fa-circle-o"></i> 목표관리</a></li>
-            <li><a href="/rfi/rfiFactorInfoList"><i class="fa fa-circle-o"></i> 산정관리</a></li>
+          	<li th:classappend="${menu.MENU_NO == '040100'} ? 'active' : ''"><a href="/menu?menuNo=040100"><i class="fa fa-circle-o"></i> 사용량관리</a></li>
+          	<li th:classappend="${menu.MENU_NO == '040200'} ? 'active' : ''"><a href="/menu?menuNo=040200"><i class="fa fa-circle-o"></i> 목표관리</a></li>
+          	<li th:classappend="${menu.MENU_NO == '040300'} ? 'active' : ''"><a href="/menu?menuNo=040300"><i class="fa fa-circle-o"></i> 산정관리</a></li>
           </ul>
         </li>
       </ul>
