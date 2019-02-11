@@ -29,4 +29,13 @@ public class HmiEnergyUseService {
 		return hmiEnergyUseMapper.selectEnergyUseList(param);
 	}
 	
+	@Transactional
+	public void saveEnergyUse(Map<String, Object> param) {
+		//String crud = param.get("oper").toString();
+		//if(crud.equals("edit")){
+			//hmiEnergyUseMapper.updateEnergyUse(param);
+		//}else {
+			hmiEnergyUseMapper.insertEnergyUse(param);
+		//}
+	}
 }

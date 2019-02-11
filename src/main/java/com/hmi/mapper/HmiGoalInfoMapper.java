@@ -12,4 +12,9 @@ public interface HmiGoalInfoMapper {
 	
 	public List<Map<String, Object>> selectGoalInfoList(Map<String, Object> param);
 	
+	public void insertGoalInfo(Map<String, Object> param);
+	
+	public void updateGoalInfo(Map<String, Object> param);
+	
+	public void deleteGoalInfo(Map<String, Object> param);
 }

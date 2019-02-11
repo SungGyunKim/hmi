@@ -20,18 +20,25 @@
 
 	<select id="selectFactorInfoList" resultType="hashmap">
 		SELECT
-			F_Id,
-			Year,
-			Name,
-			Type,
-			Kind,
-			Value,
-			DATE_FORMAT(RegDate, '%Y-%m-%d %H:%i:%s') RegDate
-		FROM
-			Factor_Info
-		WHERE
-			Year = #{Year}
-		order by RegDate		
+			a.F_Id,
+			a.Year,
+			a.Name,
+			a.Type,
+			a.Kind,
+			a.Value,
+			DATE_FORMAT(a.RegDate, '%Y-%m-%d %H:%i:%s') RegDate
+		FROM	Factor_Info a
+		WHERE	a.Year = #{Year}
+		and     a.F_Id = (select max(b.F_Id)
+							from Factor_Info b
+							where b.Year = a.Year
+							and   b.Type = a.Type
+							and   b.Kind = a.Kind)
+		order by case a.Type when '전력' then 1
+		               when '경유' then 2
+							when '도시가스' then 3
+							when '기타' then 4
+							else 9 end		
     </select>
 
 	<insert id="insertFactorInfo">
@@ -40,13 +47,13 @@
 				Name,
 				Type,
 				Kind,
-				Value
+				Value,
 				RegDate)
 			values(
 				#{Year},
-		       	#{Name},
+		       	'-',
+		       	#{Type},
 		       	#{Kind},
-		       	#{Unit},
 		       	#{Value},
 		       	DATE_SUB(NOW(), INTERVAL 1 HOUR) 
 			)
@@ -56,9 +63,9 @@
 		update Factor_Info
 		set 	Year = #{Year},
 				Name = #{Name},
-				Type = #{Kind},
-				Kind = #{Unit},
-				Value = #{Value}
+				Type = #{Type},
+				Kind = #{Kind},
+				Value = #{Value},
 				RegDate = DATE_SUB(NOW(), INTERVAL 1 HOUR)
 		where F_Id = #{F_Id}
 	</update>

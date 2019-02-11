@@ -28,5 +28,14 @@ public class HmiGoalInfoService {
 	public List<Map<String, Object>> selectGoalInfoList(Map<String, Object> param) {
 		return hmiGoalInfoMapper.selectGoalInfoList(param);
 	}
-	
+
+	@Transactional
+	public void saveGoalInfo(Map<String, Object> param) {
+		//String crud = param.get("oper").toString();
+		//if(crud.equals("edit")){
+			//hmiGoalInfoMapper.updateGoalInfo(param);
+		//}else {
+			hmiGoalInfoMapper.insertGoalInfo(param);
+		//}
+	}
 }

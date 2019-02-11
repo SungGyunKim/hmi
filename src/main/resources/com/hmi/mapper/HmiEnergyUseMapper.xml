@@ -19,26 +19,31 @@
     </select>
     
     <select id="selectEnergyUseList" resultType="hashmap">
-		Select 	Eu_Id,
-		       	Year,
-		       	Energy_Name,
-		       	Unit,
-		       	Jan,
-				Feb,
-				Mar,
-				Apr,
-				May,
-				Jun,
-				Jul,
-				Aug,
-				Sep,
-				Oct,
-				Nov,
-				`Dec`,
-				(Jan + Feb + Mar + Apr + May + Jun + Jul + Aug + Sep + Oct + Nov + `Dec`) Year_Sum
-		from   energy_use		 
-		where  Year = #{Year}
-		order by case Energy_Name when '전력' then 1
+		Select 	a.Eu_Id,
+		       	a.Year,
+		       	a.Energy_Name,
+		       	a.Unit,
+		       	a.Jan,
+				a.Feb,
+				a.Mar,
+				a.Apr,
+				a.May,
+				a.Jun,
+				a.Jul,
+				a.Aug,
+				a.Sep,
+				a.Oct,
+				a.Nov,
+				a.`Dec`,
+				(a.Jan + a.Feb + a.Mar + a.Apr + a.May + a.Jun + a.Jul + a.Aug + a.Sep + a.Oct + a.Nov + a.`Dec`) Year_Sum
+		from   energy_use a
+		where  a.Year = #{Year}
+		and    a.Eu_Id = (select max(b.Eu_Id)
+							from energy_use b
+							where b.Year = a.Year
+							and   b.Energy_Name = a.Energy_Name
+							and   b.Unit = a.Unit)
+		order by case a.Energy_Name when '전력' then 1
 		               when '경유' then 2
 							when '도시가스' then 3
 							when '기타' then 4
@@ -83,9 +88,12 @@
 
 	<update id="updateEnergyUse">
 		update energy_use
-		set Energy_Name = #{Energy_Name},
+		set 
+<!-- 
+			Energy_Name = #{Energy_Name},
 		    Unit = #{Unit},
 		    Year = #{Year},
+-->
 		    Jan = #{Jan},
 			Feb = #{Feb},
 			Mar = #{Mar},

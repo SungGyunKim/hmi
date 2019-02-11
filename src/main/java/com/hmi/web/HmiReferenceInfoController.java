@@ -34,16 +34,29 @@ public class HmiReferenceInfoController {
 	@PostMapping("/rfi/saveEnergyUseList")
     public void saveEnergyUseList(@RequestParam Map<String, Object> param) {
     	log.debug(param.toString());
+    	hmiEnergyUseService.saveEnergyUse(param);
     }
 
 	@GetMapping("/rfi/selectGoalInfoList")
     public List<Map<String, Object>> selectGoalInfoList(@RequestParam Map<String, Object> param) {
     	return hmiGoalInfoService.selectGoalInfoList(param);
     }
+
+	@PostMapping("/rfi/saveGoalInfoList")
+    public void saveGoalInfoList(@RequestParam Map<String, Object> param) {
+    	log.debug(param.toString());
+    	hmiGoalInfoService.saveGoalInfo(param);
+    }
 	
 	@GetMapping("/rfi/selectFactorInfoList")
     public List<Map<String, Object>> selectFactorInfoList(@RequestParam Map<String, Object> param) {
     	return hmiFactorInfoService.selectFactorInfoList(param);
+    }
+
+	@PostMapping("/rfi/saveFactorInfoList")
+    public void saveFactorInfoList(@RequestParam Map<String, Object> param) {
+    	log.debug(param.toString());
+		hmiFactorInfoService.saveFactorInfo(param);
     }
 	
 }

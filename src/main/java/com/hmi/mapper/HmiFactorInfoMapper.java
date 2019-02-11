@@ -11,4 +11,10 @@ public interface HmiFactorInfoMapper {
 	public List<Map<String, Object>> selectHmiFactorInfoList(Map<String, Object> param);
 	
 	public List<Map<String, Object>> selectFactorInfoList(Map<String, Object> param);
+
+	public void insertFactorInfo(Map<String, Object> param);
+	
+	public void updateFactorInfo(Map<String, Object> param);
+	
+	public void deleteFactorInfo(Map<String, Object> param);
 }

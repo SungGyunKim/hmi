@@ -19,11 +19,11 @@
                     <option value="2020">2020</option>
                     <option value="2021">2021</option>
                     <option value="2022">2022</option>
+                    <option value="2023">2023</option>
                   </select>
                 </div>  
                 <div class="form-group pull-right">
                   <button type="button" class="btn btn-primary btn-sm" id="btnSearch"><i class="fa fa-search"></i> 검색</button>
-                  <button type="button" class="btn btn-primary btn-sm" id="btnSave"><i class="fa fa-download"></i> 저장</button>
                 </div>
               </form>
             </div>
@@ -39,6 +39,20 @@
             </div>
       	  </div>
       	</div>
+      </div>
+      <!-- 입력 영역 -->
+      <div class="row">
+      	<div class="col-md-12">
+      	  <div class="box box-solid">
+            <div class="box-body">
+				<table id="addGrid" class="col-md-12"></table>
+            </div>
+      	  </div>
+      	</div>
+      </div>
+      <div class="form-group pull-right">
+         <button type="button" class="btn btn-primary btn-sm" id="btnAdd"><i class="fa fa-add"></i> 추가</button>
+         <button type="button" class="btn btn-primary btn-sm" id="btnSave"><i class="fa fa-svae"></i> 저장</button>
       </div>
     </section>
     
@@ -56,8 +70,19 @@
 				selectGoalInfoList();
 			});
 			
+			$("#btnAdd").click(function() {
+				addRow();
+			});
+
 			$("#btnSave").click(function() {
-				alert("준비 중");
+				var grid = $("#addGrid");
+	            var ids = grid.jqGrid('getDataIDs');
+	            
+	           	for (var i = 0; i < ids.length; i++) {
+	                grid.jqGrid('saveRow', ids[i]);
+	            }
+	           	
+	           	selectGoalInfoList();
 			});
 		}
 		
@@ -66,10 +91,10 @@
 				datatype: "local",
 			   	colNames: ["종류","목표량","단위","등록일시"],
 			   	colModel: [
-			   		{name:"Name", index:"Name", width:"30%", align:"center"},	// 종류
-			   		{name:"Value", index:"Value", width:"30%", align:"right"}, // 목표량
-			   		{name:"Unit", index:"Unit", width:"20%", align:"center"}, // 단위
-			   		{name:"RegDate", index:"RegDate", width:"20%", align:"center"}, // 등록일시
+			   		{name:"Name", 		index:"Name", 		width:"30%", align:"center"},	// 종류
+			   		{name:"Value", 		index:"Value", 		width:"30%", align:"right", formatter: 'number'}, // 목표량
+			   		{name:"Unit", 		index:"Unit", 		width:"20%", align:"center"}, // 단위
+			   		{name:"RegDate", 	index:"RegDate", 	width:"20%", align:"center"}, // 등록일시
 			   	],
 			   	rowNum: -1,
 			    viewrecords: true,
@@ -77,6 +102,31 @@
 			    shrinkToFit: true,
 			    forceFit: false,
 			    height: 400
+			});
+
+			$("#addGrid").jqGrid({
+				datatype: "local",
+			   	colNames: ["년도","종류","년도","종류","목표량","단위"],
+			   	colModel: [
+			   		{name:"Year1", 	index:"Year1", 	width:"20%", align:"center", 	editable:false, sortable:false},	// 년도
+			   		{name:"Name1", 	index:"Name1", 	width:"30%", align:"center", 	editable:false, sortable:false},	// 종류
+
+			   		{name:"Year", 	index:"Year", 	width:"20%", align:"center", 	editable:true,	hidden:true},	// 년도
+			   		{name:"Name", 	index:"Name", 	width:"30%", align:"center", 	editable:true,	hidden:true},	// 종류
+			   		{name:"Value", 	index:"Value", 	width:"30%", align:"right", 	editable:true, formatter: 'number', sortable:false}, // 목표량
+			   		{name:"Unit", 	index:"Unit", 	width:"20%", align:"center", 	editable:true, sortable:false}, // 단위
+			   	],
+			   	rowNum: -1,
+			    viewrecords: true,
+			    autowidth: true, 
+			    shrinkToFit: true,
+			    forceFit: false,
+			    height: 26,
+			    cellsubmit :'clientArray',
+			    editurl: '/rfi/saveGoalInfoList',
+			    onSelectRow: function(id) {
+			    	$("#addGrid").jqGrid('editRow', id, true);
+				}
 			});
 		}
 		
@@ -93,6 +143,18 @@
 				url: "/rfi/selectGoalInfoList",
 				postData: param,
 			}).trigger("reloadGrid");
+			
+			$("#addGrid").jqGrid("clearGridData", true);
+		}
+		
+		function addRow(){
+			var searchCondition = $(".frmSearchCondition").serializeObject();
+			var Year = searchCondition.Year
+			
+			var newRowData = [{"Year1": Year, "Name1": "에너지효율", "Year": Year, "Name": "에너지효율", "Value": 0, "Unit": "%"}];
+			
+			$("#addGrid").jqGrid("clearGridData", true)
+			.jqGrid('addRowData', 0, newRowData);
 		}
 		
 		/*]]>*/

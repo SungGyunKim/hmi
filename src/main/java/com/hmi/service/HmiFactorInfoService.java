@@ -29,4 +29,14 @@ public class HmiFactorInfoService {
 		return hmiFactorInfoMapper.selectFactorInfoList(param);
 	}
 	
+	@Transactional
+	public void saveFactorInfo(Map<String, Object> param) {
+		//String crud = param.get("oper").toString();
+		//if(crud.equals("edit")){
+			//hmiGoalInfoMapper.updateFactorInfoparam);
+		//}else {
+		hmiFactorInfoMapper.insertFactorInfo(param);
+		//}
+	}
+	
 }

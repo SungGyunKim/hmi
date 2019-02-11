@@ -19,11 +19,11 @@
                     <option value="2020">2020</option>
                     <option value="2021">2021</option>
                     <option value="2022">2022</option>
+                    <option value="2023">2023</option>
                   </select>
                 </div>  
                 <div class="form-group pull-right">
                   <button type="button" class="btn btn-primary btn-sm" id="btnSearch"><i class="fa fa-search"></i> 검색</button>
-                  <button type="button" class="btn btn-primary btn-sm" id="btnSave"><i class="fa fa-download"></i> 저장</button>
                 </div>
               </form>
             </div>
@@ -39,6 +39,20 @@
             </div>
       	  </div>
       	</div>
+      </div>
+      <!-- 입력 영역 -->
+      <div class="row">
+      	<div class="col-md-12">
+      	  <div class="box box-solid">
+            <div class="box-body">
+				<table id="addGrid" class="col-md-12"></table>
+            </div>
+      	  </div>
+      	</div>
+      </div>
+      <div class="form-group pull-right">
+         <button type="button" class="btn btn-primary btn-sm" id="btnAdd"><i class="fa fa-add"></i> 추가</button>
+         <button type="button" class="btn btn-primary btn-sm" id="btnSave"><i class="fa fa-svae"></i> 저장</button>
       </div>
     </section>
     
@@ -56,13 +70,19 @@
 				selectEnergyUseList();
 			});
 			
+			$("#btnAdd").click(function() {
+				addRow();
+			});
+			
 			$("#btnSave").click(function() {
-				var grid = $("#grid");
+				var grid = $("#addGrid");
 	            var ids = grid.jqGrid('getDataIDs');
 	            
 	           	for (var i = 0; i < ids.length; i++) {
 	                grid.jqGrid('saveRow', ids[i]);
 	            }
+	           	
+	           	selectEnergyUseList();
 			});
 		}
 		
@@ -71,36 +91,71 @@
 				datatype: "local",
 			   	colNames: ["", "년도", "구분","단위","합계","1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
 			   	colModel: [
-			   		{name:"EU_ID", index:"EU_ID", hidden:true, key:true},
+			   		{name:"Eu_Id", index:"Eu_Id", hidden:true, key:true},
 			   		{name:"Year", index:"Year", width:"10%", align:"center", hidden:true}, // 년도
 			   		{name:"Energy_Name", index:"Energy_Name", width:"10%", align:"center"},	// 구분
 			   		{name:"Unit", index:"Unit", width:"10%", align:"center"}, // 단위
 			   		{name:"Year_Sum", index:"Year_Sum", width:"8%", align:"right", formatter: 'number'}, // 합계
-			   		{name:"Jan", index:"Jan", width:"6%", align:"right", editable:true}, // 1월
-			   		{name:"Feb", index:"Feb", width:"6%", align:"right", editable:true}, // 2월
-			   		{name:"Mar", index:"Mar", width:"6%", align:"right", editable:true}, // 3월
-			   		{name:"Apr", index:"Apr", width:"6%", align:"right", editable:true}, // 4월
-			   		{name:"May", index:"May", width:"6%", align:"right", editable:true}, // 5월
-			   		{name:"Jun", index:"Jun", width:"6%", align:"right", editable:true}, // 6월
-			   		{name:"Jul", index:"Jul", width:"6%", align:"right", editable:true}, // 7월
-			   		{name:"Aug", index:"Aug", width:"6%", align:"right", editable:true}, // 8월
-			   		{name:"Sep", index:"Sep", width:"6%", align:"right", editable:true}, // 9월	
-			   		{name:"Oct", index:"Oct", width:"6%", align:"right", editable:true}, // 10월
-			   		{name:"Nov", index:"Nov", width:"6%", align:"right", editable:true}, // 11월
-			   		{name:"Dec", index:"Dec", width:"6%", align:"right", editable:true}, // 12월
+			   		{name:"Jan", index:"Jan", width:"6%", align:"right", formatter: 'number'}, // 1월
+			   		{name:"Feb", index:"Feb", width:"6%", align:"right", formatter: 'number'}, // 2월
+			   		{name:"Mar", index:"Mar", width:"6%", align:"right", formatter: 'number'}, // 3월
+			   		{name:"Apr", index:"Apr", width:"6%", align:"right", formatter: 'number'}, // 4월
+			   		{name:"May", index:"May", width:"6%", align:"right", formatter: 'number'}, // 5월
+			   		{name:"Jun", index:"Jun", width:"6%", align:"right", formatter: 'number'}, // 6월
+			   		{name:"Jul", index:"Jul", width:"6%", align:"right", formatter: 'number'}, // 7월
+			   		{name:"Aug", index:"Aug", width:"6%", align:"right", formatter: 'number'}, // 8월
+			   		{name:"Sep", index:"Sep", width:"6%", align:"right", formatter: 'number'}, // 9월	
+			   		{name:"Oct", index:"Oct", width:"6%", align:"right", formatter: 'number'}, // 10월
+			   		{name:"Nov", index:"Nov", width:"6%", align:"right", formatter: 'number'}, // 11월
+			   		{name:"Dec", index:"Dec", width:"6%", align:"right", formatter: 'number'}, // 12월
 			   	],
 			   	rowNum: -1,
 			    viewrecords: true,
 			    autowidth: true, 
 			    shrinkToFit: true,
 			    forceFit: false,
-			    height: 600,
+			    height: 300,
+			    loadOnce: true
+			});
+			
+			$("#addGrid").jqGrid({
+				datatype: "local",
+			   	colNames: ["년도","구분","단위","년도","구분","단위","합계","1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
+			   	colModel: [
+			   		{name:"Year1", 			index:"Year1", width:"10%", align:"center", editable:false}, // 년도
+			   		{name:"Energy_Name1", 	index:"Energy_Name1", width:"10%", align:"center",editable:false},	// 구분
+			   		{name:"Unit1", 			index:"Unit1", width:"10%", align:"center",editable:false}, // 단위
+
+			   		{name:"Year", 			index:"Year", width:"10%", align:"center", editable:true,	hidden:true}, // 년도
+			   		{name:"Energy_Name", 	index:"Energy_Name", width:"10%", align:"center",editable:true, hidden:true},	// 구분
+			   		{name:"Unit", 			index:"Unit", width:"10%", align:"center",editable:true, 	hidden:true}, // 단위
+			   		{name:"Year_Sum", 		index:"Year_Sum", width:"8%", align:"right", formatter: 'number', sortable:false}, // 합계
+			   		{name:"Jan", 			index:"Jan", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 1월
+			   		{name:"Feb", 			index:"Feb", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 2월
+			   		{name:"Mar", 			index:"Mar", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 3월
+			   		{name:"Apr", 			index:"Apr", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 4월
+			   		{name:"May", 			index:"May", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 5월
+			   		{name:"Jun", 			index:"Jun", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 6월
+			   		{name:"Jul", 			index:"Jul", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 7월
+			   		{name:"Aug", 			index:"Aug", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 8월
+			   		{name:"Sep", 			index:"Sep", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 9월	
+			   		{name:"Oct", 			index:"Oct", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 10월
+			   		{name:"Nov", 			index:"Nov", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 11월
+			   		{name:"Dec", 			index:"Dec", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 12월
+			   	],
+			   	rowNum: -1,
+			    viewrecords: true,
+			    autowidth: true, 
+			    shrinkToFit: true,
+			    forceFit: false,
+			    height: 110,
 			    loadOnce: true,
 			    onSelectRow: function(id) {
-			    	$("#grid").jqGrid('editRow', id, true);
+			    	$("#addGrid").jqGrid('editRow', id, true);
 				},
+				cellsubmit :'clientArray',
 				editurl: '/rfi/saveEnergyUseList'
-			});
+			});			
 		}
 		
 		function selectEnergyUseList() {
@@ -116,7 +171,50 @@
 				url: "/rfi/selectEnergyUseList",
 				postData: param,
 			}).trigger("reloadGrid");
+			
+			$("#addGrid").jqGrid("clearGridData", true);
 		}
+		
+		function addRow(){
+			var searchCondition = $(".frmSearchCondition").serializeObject();
+			var Year = searchCondition.Year
+			
+			var newRowData = [
+				{"Year": Year, "Energy_Name": "전력",		"Unit": "MWh",  "Year1": Year, "Energy_Name1": "전력",	"Unit1": "MWh", "Jan": 0, "Feb": 0, "Mar": 0, "Apr": 0, "May": 0, "Jun": 0,"Jul": 0, "Aug": 0, "Sep": 0,"Oct": 0, "Nov": 0, "Dec": 0 },
+				{"Year": Year, "Energy_Name": "경유", 	"Unit": "L",    "Year1": Year, "Energy_Name1": "경유", 	"Unit1": "L", 	"Jan": 0, "Feb": 0, "Mar": 0, "Apr": 0, "May": 0, "Jun": 0,"Jul": 0, "Aug": 0, "Sep": 0,"Oct": 0, "Nov": 0, "Dec": 0 },
+				{"Year": Year, "Energy_Name": "도시가스", 	"Unit": "Nm3", 	"Year1": Year, "Energy_Name1": "도시가스", "Unit1": "Nm3",	"Jan": 0, "Feb": 0, "Mar": 0, "Apr": 0, "May": 0, "Jun": 0,"Jul": 0, "Aug": 0, "Sep": 0,"Oct": 0, "Nov": 0, "Dec": 0 },
+				{"Year": Year, "Energy_Name": "기타", 	"Unit": "Kg", 	"Year1": Year, "Energy_Name1": "기타", 	"Unit1": "Kg", 	"Jan": 0, "Feb": 0, "Mar": 0, "Apr": 0, "May": 0, "Jun": 0,"Jul": 0, "Aug": 0, "Sep": 0,"Oct": 0, "Nov": 0, "Dec": 0 }
+				];
+			
+			$("#addGrid").jqGrid("clearGridData", true)
+			.jqGrid('addRowData', 0, newRowData);
+		}
+		
+		function calculateTotal() { 
+		    var grid = jQuery("#addGrid"); 
+		    var ids = grid.jqGrid('getDataIDs');
+		    
+		    for (var i = 0; i < ids.length; i++) { 
+		     	var id = ids[i];
+		     	var totalAmount = 0;
+		     	
+			    totalAmount += Number(grid.jqGrid('getCell', id, 'Jan')); 
+			    totalAmount += Number(grid.jqGrid('getCell', id, 'Feb')); 
+			    totalAmount += Number(grid.jqGrid('getCell', id, 'Mar')); 
+			    totalAmount += Number(grid.jqGrid('getCell', id, 'Apr')); 
+			    totalAmount += Number(grid.jqGrid('getCell', id, 'May')); 
+			    totalAmount += Number(grid.jqGrid('getCell', id, 'Jun')); 
+			    totalAmount += Number(grid.jqGrid('getCell', id, 'Jul')); 
+			    totalAmount += Number(grid.jqGrid('getCell', id, 'Aug')); 
+			    totalAmount += Number(grid.jqGrid('getCell', id, 'Sep')); 
+			    totalAmount += Number(grid.jqGrid('getCell', id, 'Oct')); 
+			    totalAmount += Number(grid.jqGrid('getCell', id, 'Nov'));
+			    totalAmount += Number(grid.jqGrid('getCell', id, 'Dec'));
+
+	      		grid.jqGrid('setRowData', id, { 
+		       								'Year_Sum': totalAmount	}); 
+		    } 
+		} 
 		
 		/*]]>*/
 		</script>

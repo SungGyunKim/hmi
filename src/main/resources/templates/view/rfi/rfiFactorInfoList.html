@@ -19,11 +19,11 @@
                     <option value="2020">2020</option>
                     <option value="2021">2021</option>
                     <option value="2022">2022</option>
+                    <option value="2023">2023</option>
                   </select>
                 </div>  
                 <div class="form-group pull-right">
                   <button type="button" class="btn btn-primary btn-sm" id="btnSearch"><i class="fa fa-search"></i> 검색</button>
-                  <button type="button" class="btn btn-primary btn-sm" id="btnSave"><i class="fa fa-download"></i> 저장</button>
                 </div>
               </form>
             </div>
@@ -39,6 +39,20 @@
             </div>
       	  </div>
       	</div>
+      </div>
+      <!-- 입력 영역 -->
+      <div class="row">
+      	<div class="col-md-12">
+      	  <div class="box box-solid">
+            <div class="box-body">
+				<table id="addGrid" class="col-md-12"></table>
+            </div>
+      	  </div>
+      	</div>
+      </div>
+      <div class="form-group pull-right">
+         <button type="button" class="btn btn-primary btn-sm" id="btnAdd"><i class="fa fa-add"></i> 추가</button>
+         <button type="button" class="btn btn-primary btn-sm" id="btnSave"><i class="fa fa-svae"></i> 저장</button>
       </div>
     </section>
     
@@ -56,8 +70,19 @@
 				selectFactorInfoList();
 			});
 			
+			$("#btnAdd").click(function() {
+				addRow();
+			});
+			
 			$("#btnSave").click(function() {
-				alert("준비 중");
+				var grid = $("#addGrid");
+	            var ids = grid.jqGrid('getDataIDs');
+	            
+	           	for (var i = 0; i < ids.length; i++) {
+	                grid.jqGrid('saveRow', ids[i]);
+	            }
+	           	
+	           	selectFactorInfoList();
 			});
 		}
 		
@@ -66,18 +91,44 @@
 				datatype: "local",
 			   	colNames: ["구분","종류","설정값","등록일시"],
 			   	colModel: [
-			   		{name:"Type", index:"Type", width:"30%", align:"center"},	// 구분
-			   		{name:"Kind", index:"Kind", width:"30%", align:"center"}, // 종류
-			   		{name:"Value", index:"Value", width:"20%", align:"right"}, // 설정값
-			   		{name:"RegDate", index:"RegDate", width:"20%", align:"center"}, // 등록일시
+			   		{name:"Type", 		index:"Type", 		width:"30%", align:"center"},// 구분
+			   		{name:"Kind", 		index:"Kind", 		width:"30%", align:"center"},// 종류
+			   		{name:"Value", 		index:"Value", 		width:"20%", align:"right", formatter: 'number'},// 설정값
+			   		{name:"RegDate", 	index:"RegDate", 	width:"20%", align:"center"},// 등록일시
 			   	],
 			   	rowNum: -1,
 			    viewrecords: true,
 			    autowidth: true, 
 			    shrinkToFit: true,
 			    forceFit: false,
-			    height: 400
+			    height: 300
 			});
+			
+			$("#addGrid").jqGrid({
+				datatype: "local",
+			   	colNames: ["년도","구분","종류","년도","구분","종류","설정값"],
+			   	colModel: [
+			   		{name:"Year1", 	index:"Year1", 	width:"20%", align:"center",	editable:false,	sortable:false},	// 년도
+			   		{name:"Type1", 	index:"Type1", 	width:"30%", align:"center",	editable:false,	sortable:false},	// 구분
+			   		{name:"Kind1", 	index:"Kind1", 	width:"30%", align:"center",	editable:false, sortable:false }, // 종류
+
+			   		{name:"Year", 	index:"Year", 	width:"20%", align:"center",	editable:true,	hidden:true,	sortable:false},	// 년도
+			   		{name:"Type", 	index:"Type", 	width:"30%", align:"center",	editable:true, 	hidden:true,	sortable:false},	// 구분
+			   		{name:"Kind", 	index:"Kind", 	width:"30%", align:"center",	editable:true,	hidden:true, 	sortable:false }, // 종류
+			   		{name:"Value", 	index:"Value", 	width:"20%", align:"right", 	editable:true,	sortable:false}, // 설정값
+			   		],
+			   	rowNum: -1,
+			    viewrecords: true,
+			    autowidth: true, 
+			    shrinkToFit: true,
+			    forceFit: false,
+			    height: 110,
+			    cellsubmit :'clientArray',
+			    editurl: '/rfi/saveFactorInfoList',
+			    onSelectRow: function(id) {
+			    	$("#addGrid").jqGrid('editRow', id, true);
+				}
+			});			
 		}
 		
 		function selectFactorInfoList() {
@@ -93,6 +144,23 @@
 				url: "/rfi/selectFactorInfoList",
 				postData: param,
 			}).trigger("reloadGrid");
+			
+			$("#addGrid").jqGrid("clearGridData", true);
+		}
+		
+		function addRow(){
+			var searchCondition = $(".frmSearchCondition").serializeObject();
+			var Year = searchCondition.Year
+			
+			var newRowData = [
+				{"Year1": Year, "Type1": "배출계수", "Kind1": "전력", 		"Year": Year, "Type": "배출계수", "Kind": "전력", "Value": 0},
+				{"Year1": Year, "Type1": "배출계수", "Kind1": "경유",		"Year": Year, "Type": "배출계수", "Kind": "경유", "Value": 0},
+				{"Year1": Year, "Type1": "배출계수", "Kind1": "도시가스",		"Year": Year, "Type": "배출계수", "Kind": "도시가스", "Value": 0},
+				{"Year1": Year, "Type1": "배출계수", "Kind1": "기타",		"Year": Year, "Type": "배출계수", "Kind": "기타", "Value": 0}
+				];
+			
+			$("#addGrid").jqGrid("clearGridData", true)
+			.jqGrid('addRowData', 0, newRowData);
 		}
 		
 		/*]]>*/
