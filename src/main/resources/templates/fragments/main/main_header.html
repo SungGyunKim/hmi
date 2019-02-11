@@ -21,10 +21,10 @@
       <!-- Collect the nav links, forms, and other content for toggling -->
       <div class="collapse navbar-collapse pull-left" id="navbar-collapse">
         <ul class="nav navbar-nav">
-          <li th:classappend="${#strings.contains(menu.MENU_NO_PATH, '010000')} ? 'active' : ''"><a href="#">모니터링</a></li>
-          <li th:classappend="${#strings.contains(menu.MENU_NO_PATH, '020000')} ? 'active' : ''"><a href="#">데이터관리</a></li>
-          <li th:classappend="${#strings.contains(menu.MENU_NO_PATH, '030000')} ? 'active' : ''"><a href="#">이력관리</a></li>
-          <li th:classappend="${#strings.contains(menu.MENU_NO_PATH, '040000')} ? 'active' : ''"><a href="#">기준정보</a></li>
+          <li th:classappend="${#strings.contains(menu.MENU_NO_PATH, '010000')} ? 'active' : ''"><a href="javascript:openMenu('010000');">모니터링</a></li>
+          <li th:classappend="${#strings.contains(menu.MENU_NO_PATH, '020000')} ? 'active' : ''"><a href="javascript:openMenu('020000');">데이터관리</a></li>
+          <li th:classappend="${#strings.contains(menu.MENU_NO_PATH, '030000')} ? 'active' : ''"><a href="javascript:openMenu('030000');">이력관리</a></li>
+          <li th:classappend="${#strings.contains(menu.MENU_NO_PATH, '040000')} ? 'active' : ''"><a href="javascript:openMenu('040000');">기준정보</a></li>
         </ul>
       </div>
       <!-- /.navbar-collapse -->
