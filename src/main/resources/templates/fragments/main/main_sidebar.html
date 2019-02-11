@@ -9,7 +9,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <!-- ################################### 모니터링 ################################### -->
-        <li class="treeview" th:classappend="${#strings.contains(menu.MENU_NO_PATH, '010000')} ? 'active' : ''">
+        <li class="treeview" data-menu-no="010000" th:classappend="${#strings.contains(menu.MENU_NO_PATH, '010000')} ? 'active' : ''">
           <a href="#">
             <i class="fa fa-th"></i> <span>모니터링</span>
             <span class="pull-right-container">
@@ -42,7 +42,7 @@
           </ul>
         </li>
         <!-- ################################### 테이터관리 ################################### -->
-        <li class="treeview" th:classappend="${#strings.contains(menu.MENU_NO_PATH, '020000')} ? 'active' : ''">
+        <li class="treeview" data-menu-no="020000" th:classappend="${#strings.contains(menu.MENU_NO_PATH, '020000')} ? 'active' : ''">
           <a href="#">
             <i class="fa fa-th"></i> <span>테이터관리</span>
             <span class="pull-right-container">
@@ -75,7 +75,7 @@
           </ul>
         </li>
         <!-- ################################### 이력관리 ################################### -->
-        <li class="treeview" th:classappend="${#strings.contains(menu.MENU_NO_PATH, '030000')} ? 'active' : ''">
+        <li class="treeview" data-menu-no="030000" th:classappend="${#strings.contains(menu.MENU_NO_PATH, '030000')} ? 'active' : ''">
           <a href="#">
             <i class="fa fa-th"></i> <span>이력관리</span>
             <span class="pull-right-container">
@@ -88,7 +88,7 @@
           </ul>
         </li>
         <!-- ################################### 기준정보 ################################### -->
-        <li class="treeview" th:classappend="${#strings.contains(menu.MENU_NO_PATH, '040000')} ? 'active' : ''">
+        <li class="treeview" data-menu-no="040000" th:classappend="${#strings.contains(menu.MENU_NO_PATH, '040000')} ? 'active' : ''">
           <a href="#">
             <i class="fa fa-th"></i> <span>기준정보</span>
             <span class="pull-right-container">
@@ -106,7 +106,9 @@
     <!-- /.sidebar -->
     <script th:inline="javascript">
     	function openMenu(menuNo) {
-	  		console.log(menuNo);
+    		$('ul.sidebar-menu > .treeview').filter(function() {
+			    return $(this).data('menuNo') == menuNo;
+			}).children("a").trigger("click");
 	  	}
 	</script>
   </aside>
