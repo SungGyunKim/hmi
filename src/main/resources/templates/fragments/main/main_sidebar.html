@@ -9,7 +9,7 @@
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
         <!-- ################################### 모니터링 ################################### -->
-        <li class="treeview active">
+        <li class="treeview" th:classappend="${#strings.contains(menu.MENU_NO_PATH, '010000')} ? 'active' : ''">
           <a href="#">
             <i class="fa fa-th"></i> <span>모니터링</span>
             <span class="pull-right-container">
@@ -28,7 +28,7 @@
                 <li><a href="#"><i class="fa fa-circle-o"></i> 기계실</a></li>
               </ul>
             </li>
-            <li class="treeview active">
+            <li class="treeview" th:classappend="${#strings.contains(menu.MENU_NO_PATH, '010300')} ? 'active' : ''">
               <a href="#"><i class="fa fa-circle-o"></i> 숙소동
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -42,7 +42,7 @@
           </ul>
         </li>
         <!-- ################################### 테이터관리 ################################### -->
-        <li class="treeview">
+        <li class="treeview" th:classappend="${#strings.contains(menu.MENU_NO_PATH, '020000')} ? 'active' : ''">
           <a href="#">
             <i class="fa fa-th"></i> <span>테이터관리</span>
             <span class="pull-right-container">
@@ -61,7 +61,7 @@
                 <li><a href="#"><i class="fa fa-circle-o"></i> 기계실</a></li>
               </ul>
             </li>
-            <li class="treeview">
+            <li class="treeview" th:classappend="${#strings.contains(menu.MENU_NO_PATH, '020300')} ? 'active' : ''">
               <a href="#"><i class="fa fa-circle-o"></i> 숙소동
                 <span class="pull-right-container">
                   <i class="fa fa-angle-left pull-right"></i>
@@ -75,7 +75,7 @@
           </ul>
         </li>
         <!-- ################################### 이력관리 ################################### -->
-        <li class="treeview">
+        <li class="treeview" th:classappend="${#strings.contains(menu.MENU_NO_PATH, '030000')} ? 'active' : ''">
           <a href="#">
             <i class="fa fa-th"></i> <span>이력관리</span>
             <span class="pull-right-container">
@@ -88,7 +88,7 @@
           </ul>
         </li>
         <!-- ################################### 기준정보 ################################### -->
-        <li class="treeview">
+        <li class="treeview" th:classappend="${#strings.contains(menu.MENU_NO_PATH, '040000')} ? 'active' : ''">
           <a href="#">
             <i class="fa fa-th"></i> <span>기준정보</span>
             <span class="pull-right-container">
