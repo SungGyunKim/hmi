@@ -21,7 +21,10 @@
     <select id="selectControlRecordList" resultType="hashmap">
 		Select No, Dong, Floor, Ho, NowTemp, SetTemp, NowControlValue, SetControlValue, 
 		       DATE_FORMAT(RegDate, '%Y-%m-%d %H:%i:%s') RegDate, 
-		       (CASE WHEN OnOff = 0 THEN 'OFF' WHEN OnOff = 1 THEN 'ON' END) OnOff
+		       (CASE WHEN OnOff = 0 THEN 'OFF' WHEN OnOff = 1 THEN 'ON' END) OnOff,
+		       DiffTemp, OutTemp, 
+		       (CASE WHEN Isread = 0 THEN '읽지않음' WHEN Isread = 1 THEN '읽음' END) Isread, 
+		       DATE_FORMAT(SetDate, '%Y-%m-%d %H:%i:%s') SetDate
 		from   ControlRecord
 		where  date_format(RegDate,'%Y%m%d') between #{regDateFrom} and #{regDateTo}
 		<if test="Dong != null and Dong != ''">
@@ -40,7 +43,10 @@
 				NowControlValue, 
 				SetControlValue,
 				OnOff,
-				RegDate)
+				RegDate,
+				DiffTemp, 
+				OutTemp, 
+				Isread)
 			values(
 				#{Dong}, 
 				substr(#{Ho}, 1, 1), 
@@ -52,8 +58,7 @@
 									where a.Ho = b.Ho )
 					and    a.Ho = #{Ho}), 0), 
 				case #{OnOff} when '0' then 0 
-							  else  case #{grpTempKey} when 'SetTemp' then #{grpTempValue}
-							                           else 0 end
+							  else  #{SetTemp}
 				  end, 
 				nvl((select a.NowControlValue
 					from   RoomB a
@@ -61,12 +66,16 @@
                						from RoomB b
 									where a.Ho = b.Ho )
 					and    a.Ho = #{Ho}), 0), 
-				case #{OnOff} when '0' then 0 
-							  else  case #{grpTempKey} when 'DiffTemp' then #{grpTempValue}
-							                           else 0 end
-				  end, 
+				0, 
 				#{OnOff},
-		       	DATE_SUB(NOW(), INTERVAL 1 HOUR) 
+		       	DATE_SUB(NOW(), INTERVAL 1 HOUR),
+				case #{OnOff} when '0' then 0 
+							  else  #{DiffTemp}
+				  end, 
+				case #{OnOff} when '0' then 0 
+							  else  #{OutTemp}
+				  end, 
+				0 
 			)
 	</insert>
 
