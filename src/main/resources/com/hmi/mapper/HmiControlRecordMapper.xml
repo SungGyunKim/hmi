@@ -23,7 +23,7 @@
 		       DATE_FORMAT(RegDate, '%Y-%m-%d %H:%i:%s') RegDate, 
 		       (CASE WHEN OnOff = 0 THEN 'OFF' WHEN OnOff = 1 THEN 'ON' END) OnOff,
 		       DiffTemp, OutTemp, 
-		       (CASE WHEN Isread = 0 THEN '읽지않음' WHEN Isread = 1 THEN '읽음' END) Isread, 
+		       (CASE WHEN flag = 0 THEN '읽지않음' WHEN flag = 1 THEN '읽음' END) flag, 
 		       DATE_FORMAT(SetDate, '%Y-%m-%d %H:%i:%s') SetDate
 		from   ControlRecord
 		where  date_format(RegDate,'%Y%m%d') between #{regDateFrom} and #{regDateTo}
@@ -46,7 +46,7 @@
 				RegDate,
 				DiffTemp, 
 				OutTemp, 
-				Isread)
+				flag)
 			values(
 				#{Dong}, 
 				substr(#{Ho}, 1, 1), 
