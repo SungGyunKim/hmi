@@ -58,8 +58,10 @@
 									where a.Ho = b.Ho )
 					and    a.Ho = #{Ho}), 0), 
 				case #{OnOff} when '0' then 0 
-							  else  #{SetTemp}
-				  end, 
+							  else  case #{grpTempKey} when 'SetTemp' then #{grpTempValue}
+							                           else 0 end
+
+				end, 
 				nvl((select a.NowControlValue
 					from   RoomB a
 					where  a.No = (select max(b.No) 
@@ -70,11 +72,14 @@
 				#{OnOff},
 		       	DATE_SUB(NOW(), INTERVAL 1 HOUR),
 				case #{OnOff} when '0' then 0 
-							  else  #{DiffTemp}
-				  end, 
+							  else  case #{grpTempKey} when 'DiffTemp' then #{grpTempValue}
+							                           else 0 end
+
+				end, 
 				case #{OnOff} when '0' then 0 
-							  else  #{OutTemp}
-				  end, 
+							  else  case #{grpTempKey} when 'OutTemp' then #{grpTempValue}
+							                           else 0 end
+			    end, 
 				0 
 			)
 	</insert>

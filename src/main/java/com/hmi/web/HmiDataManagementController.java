@@ -34,6 +34,11 @@ public class HmiDataManagementController {
 	public List<Map<String, Object>> selectRoombSts(@RequestParam Map<String, Object> param) {
 		return hmiRoombService.selectRoombSts(param);
 	}
+
+	@GetMapping("/dmt/selectRoombAllList")
+	public List<Map<String, Object>> selectRoombAllList(@RequestParam Map<String, Object> param) {
+		return hmiRoombService.selectRoombAllList(param);
+	}
 	
 	@GetMapping("/dmt/selectRoomcTempSts")
 	public List<Map<String, Object>> selectRoomcTempSts(@RequestParam Map<String, Object> param) {

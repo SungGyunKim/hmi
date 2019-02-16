@@ -25,6 +25,8 @@ public class HmiMonitoringController {
 	
 	@PostMapping("/mtr/mtrRoombBatchControl")
 	public void mtrRoombBatchControl(@RequestParam Map<String, Object> param, @RequestParam(value="hoList[]") List<Object> hoList) {
+		//log.debug(param.toString());
+		//log.debug(hoList.toString());
 		hmiControlRecordService.insertControlRecord(param, hoList);
 	}
 	

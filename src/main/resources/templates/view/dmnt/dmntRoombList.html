@@ -143,7 +143,7 @@
 			   		{name:"InHeating", index:"InHeating", width:"9%", align:"right"}, // 공급온도
 			   		{name:"OutHeating", index:"OutHeating", width:"9%", align:"right"}, // 환수온도
 			   		{name:"NowFlow", index:"NowFlow", width:"9%", align:"right"}, // 유량순시치
-			   		{name:"NowControlValue", index:"NowControlValue", width:"9%", align:"right"}, // 밸브개도율
+			   		{name:"", index:"NowControlValue", width:"9%", align:"right"}, // 밸브개도율
 			   		{name:"DiffHeating", index:"DiffHeating", width:"9%", align:"right"} // 온도차(공급온도-환수온도)
 			   	],
 			   	rowNum: -1,
@@ -232,17 +232,21 @@
 			.jqGrid("clearGridData", true)
 			.jqGrid("setGridParam", {
 				datatype: "json",
-				url: "/dmt/selectRoombList",
+				url: "/dmt/selectRoombAllList",
 				postData: param,
 			}).trigger("reloadGrid");
 		}
 		
 		function exportExcel(){
+			var searchCondition = $(".frmSearchCondition").serializeObject();
+			
+			var ymd = $("#regDate").data("datepicker").getFormattedDate("yyyymmdd");
+
 			$("#grid").jqGrid("exportToExcel",{
 				includeLabels : true,
 				includeGroupHeader : true,
 				includeFooter: true,
-				fileName : "데이터관리_숙소동B.xlsx",
+				fileName : "숙소동_" + ymd +".xlsx",
 				maxlength : 40 // maxlength for visible string data 
 			});
 		}

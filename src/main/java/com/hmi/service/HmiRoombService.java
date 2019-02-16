@@ -40,4 +40,8 @@ public class HmiRoombService {
 	public List<Map<String, Object>> selectRoomb(Map<String, Object> param) {
 		return hmiRoombMapper.selectRoomb(param);
 	}
+
+	public List<Map<String, Object>> selectRoombAllList(Map<String, Object> param) {
+		return hmiRoombMapper.selectRoombAllList(param);
+	}
 }

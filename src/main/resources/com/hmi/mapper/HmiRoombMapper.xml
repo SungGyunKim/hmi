@@ -107,4 +107,35 @@
 		AND A.Ho = #{ho}
     </select>
     
+	<select id="selectRoombAllList" resultType="hashmap">
+		SELECT
+			A.No,
+			A.Floor,
+			A.Ho,
+			A.InsideTemp,
+			A.SetTemp,
+			A.InHeating,
+			A.OutHeating,
+			A.NowControlValue,
+			A.SetControlValue,
+			DATE_FORMAT(A.RegDate, '%Y-%m-%d %H:%i:%s') AS RegDate,
+			A.NowFlow,
+			A.TotalFlow,
+			(CASE WHEN A.OnOff = 0 THEN 'OFF' WHEN A.OnOff = 1 THEN 'ON' END) AS OnOff,
+			A.TotalHeat,
+			DATE_FORMAT(A.SetDate, '%Y-%m-%d %H:%i:%s') AS SetDate,
+			A.InHeating - A.OutHeating AS DiffHeating
+		FROM
+			RoomB A
+		WHERE 1 = 1	
+		<if test="ho != null and ho != ''">
+		AND A.Ho = #{ho}
+		</if>
+		<if test="regDate != null and regDate != ''">
+		AND date_format(A.SetDate,'%Y%m%d') = #{regDate}
+		</if>
+		ORDER BY
+			A.SetDate
+    </select>
+    
 </mapper>

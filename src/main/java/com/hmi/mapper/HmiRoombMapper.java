@@ -15,4 +15,6 @@ public interface HmiRoombMapper {
 	public List<Map<String, Object>> selectRoombSts(Map<String, Object> param);
 	
 	public List<Map<String, Object>> selectRoomb(Map<String, Object> param);
+	
+	public List<Map<String, Object>> selectRoombAllList(Map<String, Object> param);
 }
