@@ -13,7 +13,7 @@
 		.floor .ho {
 			display: inline-block;
 			width: 120px;
-			height: 130px;
+			height: 135px;
 			padding-left: 5px;
 			padding-right: 5px;
 			background-color: #f5f5f5;
@@ -227,12 +227,11 @@
 	            		var item = data[i];
 	            		
 	            		$(".ho"+item.Ho).removeClass("disconnected");
-	            		$(".ho"+item.Ho).addClass(item.InsideTemp > 30 ? "disconnected" : "")
+	            		$(".ho"+item.Ho).addClass(item.connet == 0 ? "disconnected" : "")
 	            		$(".ho"+item.Ho).find("#InsideTemp").val(item.InsideTemp);
 	            		$(".ho"+item.Ho).find("#SetTemp").val(item.SetTemp);
 	            		$(".ho"+item.Ho).find("#InHeating").val(item.InHeating);
 	            		$(".ho"+item.Ho).find("#OnOff").val(item.OnOff);
-	            		
 	            		$(".ho"+item.Ho).find("#OnOff").addClass(item.OnOff == "ON" ? "onoffBC" : "");
 	            		
 	            		//$(".ho"+item.Ho).find("#OnOff").prop("checked", item.OnOff == "ON" ? true : false).change();

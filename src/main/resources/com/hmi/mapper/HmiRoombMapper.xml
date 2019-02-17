@@ -19,7 +19,8 @@
 			(CASE WHEN A.OnOff = 0 THEN 'OFF' WHEN A.OnOff = 1 THEN 'ON' END) AS OnOff,
 			A.TotalHeat,
 			DATE_FORMAT(A.SetDate, '%Y-%m-%d %H:%i:%s') AS SetDate,
-			A.InHeating - A.OutHeating AS DiffHeating
+			A.InHeating - A.OutHeating AS DiffHeating,
+			(SELECT connet FROM LookServer WHERE Dong = 'b' AND Ho = A.Ho ORDER BY Regdate DESC LIMIT 1) AS connet
 		FROM
 			RoomB A
 		WHERE A.no = (select max(B.no)
