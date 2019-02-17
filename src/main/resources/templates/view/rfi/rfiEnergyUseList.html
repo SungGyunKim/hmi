@@ -122,9 +122,9 @@
 				datatype: "local",
 			   	colNames: ["년도","구분","단위","년도","구분","단위","합계","1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
 			   	colModel: [
-			   		{name:"Year1", 			index:"Year1", width:"10%", align:"center", editable:false}, // 년도
-			   		{name:"Energy_Name1", 	index:"Energy_Name1", width:"10%", align:"center",editable:false},	// 구분
-			   		{name:"Unit1", 			index:"Unit1", width:"10%", align:"center",editable:false}, // 단위
+			   		{name:"Year", 			index:"Year1", width:"10%", align:"center", editable:false}, // 년도
+			   		{name:"Energy_Name", 	index:"Energy_Name1", width:"10%", align:"center",editable:false},	// 구분
+			   		{name:"Unit", 			index:"Unit1", width:"10%", align:"center",editable:false}, // 단위
 
 			   		{name:"Year", 			index:"Year", width:"10%", align:"center", editable:true,	hidden:true}, // 년도
 			   		{name:"Energy_Name", 	index:"Energy_Name", width:"10%", align:"center",editable:true, hidden:true},	// 구분
@@ -154,7 +154,40 @@
 			    	$("#addGrid").jqGrid('editRow', id, true);
 				},
 				cellsubmit :'clientArray',
-				editurl: '/rfi/saveEnergyUseList'
+				editurl: '/rfi/saveEnergyUseList',
+				loadComplete: function(data) {
+					var searchCondition = $(".frmSearchCondition").serializeObject();
+					
+					var baseData = [
+						{"Year": searchCondition.Year, "Energy_Name": "전력",		"Unit": "MWh", "Jan": 0, "Feb": 0, "Mar": 0, "Apr": 0, "May": 0, "Jun": 0,"Jul": 0, "Aug": 0, "Sep": 0,"Oct": 0, "Nov": 0, "Dec": 0 },
+						{"Year": searchCondition.Year, "Energy_Name": "경유", 	"Unit": "L",   "Jan": 0, "Feb": 0, "Mar": 0, "Apr": 0, "May": 0, "Jun": 0,"Jul": 0, "Aug": 0, "Sep": 0,"Oct": 0, "Nov": 0, "Dec": 0 },
+						{"Year": searchCondition.Year, "Energy_Name": "도시가스", 	"Unit": "Nm3", "Jan": 0, "Feb": 0, "Mar": 0, "Apr": 0, "May": 0, "Jun": 0,"Jul": 0, "Aug": 0, "Sep": 0,"Oct": 0, "Nov": 0, "Dec": 0 },
+						{"Year": searchCondition.Year, "Energy_Name": "기타", 	"Unit": "Kg",  "Jan": 0, "Feb": 0, "Mar": 0, "Apr": 0, "May": 0, "Jun": 0,"Jul": 0, "Aug": 0, "Sep": 0,"Oct": 0, "Nov": 0, "Dec": 0 }
+					];
+					
+					if(Array.isArray(data)) {
+						if(data.length === 0) {
+							$(this).jqGrid('addRowData', 0, baseData);
+						} else if(data.length === 4) {
+							return;
+						} else {
+							for(var i=0; i<baseData.length; i++) {
+								var isExist = false;
+								
+								for(var j=0; j<data.length; j++) {
+									if(baseData[i].Energy_Name === data[j].Energy_Name) {
+										isExist = true;
+										break;
+									}
+								}
+								
+								if(!isExist) {
+									$(this).jqGrid('addRowData', i, baseData[i]);
+								}
+				        	}
+						}
+			        }
+			    }
 			});			
 		}
 		
@@ -177,17 +210,17 @@
 		
 		function addRow(){
 			var searchCondition = $(".frmSearchCondition").serializeObject();
-			var Year = searchCondition.Year
 			
-			var newRowData = [
-				{"Year": Year, "Energy_Name": "전력",		"Unit": "MWh",  "Year1": Year, "Energy_Name1": "전력",	"Unit1": "MWh", "Jan": 0, "Feb": 0, "Mar": 0, "Apr": 0, "May": 0, "Jun": 0,"Jul": 0, "Aug": 0, "Sep": 0,"Oct": 0, "Nov": 0, "Dec": 0 },
-				{"Year": Year, "Energy_Name": "경유", 	"Unit": "L",    "Year1": Year, "Energy_Name1": "경유", 	"Unit1": "L", 	"Jan": 0, "Feb": 0, "Mar": 0, "Apr": 0, "May": 0, "Jun": 0,"Jul": 0, "Aug": 0, "Sep": 0,"Oct": 0, "Nov": 0, "Dec": 0 },
-				{"Year": Year, "Energy_Name": "도시가스", 	"Unit": "Nm3", 	"Year1": Year, "Energy_Name1": "도시가스", "Unit1": "Nm3",	"Jan": 0, "Feb": 0, "Mar": 0, "Apr": 0, "May": 0, "Jun": 0,"Jul": 0, "Aug": 0, "Sep": 0,"Oct": 0, "Nov": 0, "Dec": 0 },
-				{"Year": Year, "Energy_Name": "기타", 	"Unit": "Kg", 	"Year1": Year, "Energy_Name1": "기타", 	"Unit1": "Kg", 	"Jan": 0, "Feb": 0, "Mar": 0, "Apr": 0, "May": 0, "Jun": 0,"Jul": 0, "Aug": 0, "Sep": 0,"Oct": 0, "Nov": 0, "Dec": 0 }
-				];
+			var param = {};
+			param.Year = searchCondition.Year;
 			
-			$("#addGrid").jqGrid("clearGridData", true)
-			.jqGrid('addRowData', 0, newRowData);
+			$("#addGrid")
+			.jqGrid("clearGridData", true)
+			.jqGrid("setGridParam", {
+				datatype: "json",
+				url: "/rfi/selectEnergyUseList",
+				postData: param,
+			}).trigger("reloadGrid");
 		}
 		
 		function calculateTotal() { 
