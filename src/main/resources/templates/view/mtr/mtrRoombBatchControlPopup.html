@@ -153,10 +153,11 @@
 		      				<label for="DiffTemp">난방수온도차</label>
 		      			</div>
 		      			<div class="tempRightContainer">
-		      				<input type="text" id="txtDiffTemp" name="grpTempValue" style="text-align: right;">
+		      				<input type="text" id="txtDiffTemp" name="grpTempValue" style="text-align: right;" value="0">
 		      				<span>°C</span>
 		      			</div>
 		      		</div>
+<!--		      		
 		      		<div>
 		      			<div class="templeftContainer">
 		      				<input type="radio" name="grpTempKey" class="flat-red" id="OutTemp" value="OutTemp">
@@ -167,13 +168,14 @@
 		      				<span>°C</span>
 		      			</div>
 		      		</div>
+  -->
 		      		<div>
 		      			<div class="templeftContainer">
 		      				<input type="radio" name="grpTempKey" class="flat-red" id="SetTemp" value="SetTemp">	 
 			      			<label for="SetTemp">설정온도</label>
 		      			</div>
 		      			<div class="tempRightContainer">
-		      				<input type="text" id="txtSetTemp" name="grpTempValue" style="text-align: right;" disabled>
+		      				<input type="text" id="txtSetTemp" name="grpTempValue" style="text-align: right;" disabled value="0">
 		      				<span>°C</span>
 		      			</div>
 		      		</div>
@@ -258,9 +260,10 @@
 			
 			if(this.checked) {
 				$("#txt" + value).prop('disabled', false);
+				$("#txt" + value).val("0");
 			} else {
 				$("#txt" + value).prop('disabled', true);
-				$("#txt" + value).val("");
+				$("#txt" + value).val("0");
 			}
 		});
 	});

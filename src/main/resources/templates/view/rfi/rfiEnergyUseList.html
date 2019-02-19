@@ -150,11 +150,11 @@
 			    forceFit: false,
 			    height: 110,
 			    loadOnce: true,
+				cellsubmit :"clientArray",
+				editurl: "/rfi/saveEnergyUseList",
 			    onSelectRow: function(id) {
 			    	$("#addGrid").jqGrid('editRow', id, true);
 				},
-				cellsubmit :'clientArray',
-				editurl: '/rfi/saveEnergyUseList',
 				loadComplete: function(data) {
 					var searchCondition = $(".frmSearchCondition").serializeObject();
 					
@@ -223,6 +223,9 @@
 			}).trigger("reloadGrid");
 		}
 		
+		$('#addGrid').on('cellvaluechanged', function (event) {
+		});
+
 		function calculateTotal() { 
 		    var grid = jQuery("#addGrid"); 
 		    var ids = grid.jqGrid('getDataIDs');
