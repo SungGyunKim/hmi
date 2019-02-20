@@ -118,6 +118,16 @@
 			    loadOnce: true
 			});
 			
+			var calculateTotalListener = {
+				type: 'change',
+				fn: function (e) {
+					var row = $(e.target).closest('tr.jqgrow');
+					var rowId = row.attr('id');
+					
+					calculateTotal(rowId);
+				}
+			};
+			
 			$("#addGrid").jqGrid({
 				datatype: "local",
 			   	colNames: ["년도","구분","단위","년도","구분","단위","합계","1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
@@ -130,18 +140,18 @@
 			   		{name:"Energy_Name", 	index:"Energy_Name", width:"10%", align:"center",editable:true, hidden:true},	// 구분
 			   		{name:"Unit", 			index:"Unit", width:"10%", align:"center",editable:true, 	hidden:true}, // 단위
 			   		{name:"Year_Sum", 		index:"Year_Sum", width:"8%", align:"right", formatter: 'number', sortable:false}, // 합계
-			   		{name:"Jan", 			index:"Jan", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 1월
-			   		{name:"Feb", 			index:"Feb", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 2월
-			   		{name:"Mar", 			index:"Mar", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 3월
-			   		{name:"Apr", 			index:"Apr", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 4월
-			   		{name:"May", 			index:"May", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 5월
-			   		{name:"Jun", 			index:"Jun", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 6월
-			   		{name:"Jul", 			index:"Jul", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 7월
-			   		{name:"Aug", 			index:"Aug", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 8월
-			   		{name:"Sep", 			index:"Sep", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 9월	
-			   		{name:"Oct", 			index:"Oct", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 10월
-			   		{name:"Nov", 			index:"Nov", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 11월
-			   		{name:"Dec", 			index:"Dec", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number'}, // 12월
+			   		{name:"Jan", 			index:"Jan", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number', editoptions: { dataEvents: [ calculateTotalListener ] }}, // 1월
+			   		{name:"Feb", 			index:"Feb", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number', editoptions: { dataEvents: [ calculateTotalListener ] }}, // 2월
+			   		{name:"Mar", 			index:"Mar", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number', editoptions: { dataEvents: [ calculateTotalListener ] }}, // 3월
+			   		{name:"Apr", 			index:"Apr", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number', editoptions: { dataEvents: [ calculateTotalListener ] }}, // 4월
+			   		{name:"May", 			index:"May", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number', editoptions: { dataEvents: [ calculateTotalListener ] }}, // 5월
+			   		{name:"Jun", 			index:"Jun", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number', editoptions: { dataEvents: [ calculateTotalListener ] }}, // 6월
+			   		{name:"Jul", 			index:"Jul", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number', editoptions: { dataEvents: [ calculateTotalListener ] }}, // 7월
+			   		{name:"Aug", 			index:"Aug", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number', editoptions: { dataEvents: [ calculateTotalListener ] }}, // 8월
+			   		{name:"Sep", 			index:"Sep", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number', editoptions: { dataEvents: [ calculateTotalListener ] }}, // 9월	
+			   		{name:"Oct", 			index:"Oct", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number', editoptions: { dataEvents: [ calculateTotalListener ] }}, // 10월
+			   		{name:"Nov", 			index:"Nov", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number', editoptions: { dataEvents: [ calculateTotalListener ] }}, // 11월
+			   		{name:"Dec", 			index:"Dec", width:"6%", align:"right", editable:true, sortable:false, formatter: 'number', editoptions: { dataEvents: [ calculateTotalListener ] }}, // 12월
 			   	],
 			   	rowNum: -1,
 			    viewrecords: true,
@@ -152,7 +162,7 @@
 			    loadOnce: true,
 				cellsubmit :"clientArray",
 				editurl: "/rfi/saveEnergyUseList",
-			    onSelectRow: function(id)
+			    onSelectRow: function(id) {
 			    	$("#addGrid").jqGrid('editRow', id, false);
 				},
 				loadComplete: function(data) {
@@ -223,33 +233,23 @@
 			}).trigger("reloadGrid");
 		}
 		
-		$('#addGrid').on('cellvaluechanged', function (event) {
-		});
-
-		function calculateTotal() { 
-		    var grid = jQuery("#addGrid"); 
-		    var ids = grid.jqGrid('getDataIDs');
+		function calculateTotal(rowId) { 
+	     	var totalAmount = 0;
+	     	
+		    totalAmount += parseFloat($('#' + rowId + '_' + 'Jan').val());
+		    totalAmount += parseFloat($('#' + rowId + '_' + 'Feb').val());
+		    totalAmount += parseFloat($('#' + rowId + '_' + 'Mar').val());
+		    totalAmount += parseFloat($('#' + rowId + '_' + 'Apr').val());
+		    totalAmount += parseFloat($('#' + rowId + '_' + 'May').val());
+		    totalAmount += parseFloat($('#' + rowId + '_' + 'Jun').val());
+		    totalAmount += parseFloat($('#' + rowId + '_' + 'Jul').val());
+		    totalAmount += parseFloat($('#' + rowId + '_' + 'Aug').val());
+		    totalAmount += parseFloat($('#' + rowId + '_' + 'Sep').val());
+		    totalAmount += parseFloat($('#' + rowId + '_' + 'Oct').val());
+		    totalAmount += parseFloat($('#' + rowId + '_' + 'Nov').val());
+		    totalAmount += parseFloat($('#' + rowId + '_' + 'Dec').val());
 		    
-		    for (var i = 0; i < ids.length; i++) { 
-		     	var id = ids[i];
-		     	var totalAmount = 0;
-		     	
-			    totalAmount += Number(grid.jqGrid('getCell', id, 'Jan')); 
-			    totalAmount += Number(grid.jqGrid('getCell', id, 'Feb')); 
-			    totalAmount += Number(grid.jqGrid('getCell', id, 'Mar')); 
-			    totalAmount += Number(grid.jqGrid('getCell', id, 'Apr')); 
-			    totalAmount += Number(grid.jqGrid('getCell', id, 'May')); 
-			    totalAmount += Number(grid.jqGrid('getCell', id, 'Jun')); 
-			    totalAmount += Number(grid.jqGrid('getCell', id, 'Jul')); 
-			    totalAmount += Number(grid.jqGrid('getCell', id, 'Aug')); 
-			    totalAmount += Number(grid.jqGrid('getCell', id, 'Sep')); 
-			    totalAmount += Number(grid.jqGrid('getCell', id, 'Oct')); 
-			    totalAmount += Number(grid.jqGrid('getCell', id, 'Nov'));
-			    totalAmount += Number(grid.jqGrid('getCell', id, 'Dec'));
-
-	      		grid.jqGrid('setRowData', id, { 
-		       								'Year_Sum': totalAmount	}); 
-		    } 
+		    $("#addGrid").jqGrid('setRowData', rowId, { 'Year_Sum': totalAmount }); 
 		} 
 		
 		/*]]>*/
