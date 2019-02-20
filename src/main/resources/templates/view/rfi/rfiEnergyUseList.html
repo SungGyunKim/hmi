@@ -123,7 +123,7 @@
 			   	colNames: ["년도","구분","단위","년도","구분","단위","합계","1월","2월","3월","4월","5월","6월","7월","8월","9월","10월","11월","12월"],
 			   	colModel: [
 			   		{name:"Year", 			index:"Year1", width:"10%", align:"center", editable:false}, // 년도
-			   		{name:"Energy_Name", 	index:"Energy_Name1", width:"10%", align:"center",editable:false},	// 구분
+			   		{name:"Energy_Name", 	index:"Energy_Name1", width:"10%", align:"center",editable:false, key:true},	// 구분
 			   		{name:"Unit", 			index:"Unit1", width:"10%", align:"center",editable:false}, // 단위
 
 			   		{name:"Year", 			index:"Year", width:"10%", align:"center", editable:true,	hidden:true}, // 년도
@@ -152,8 +152,8 @@
 			    loadOnce: true,
 				cellsubmit :"clientArray",
 				editurl: "/rfi/saveEnergyUseList",
-			    onSelectRow: function(id) {
-			    	$("#addGrid").jqGrid('editRow', id, true);
+			    onSelectRow: function(id)
+			    	$("#addGrid").jqGrid('editRow', id, false);
 				},
 				loadComplete: function(data) {
 					var searchCondition = $(".frmSearchCondition").serializeObject();
