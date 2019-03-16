@@ -9,7 +9,7 @@ spring:
     cache: false
   datasource:
     driverClassName: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
-    url: jdbc:log4jdbc:mariadb://115.93.26.228:3306/hmi
+    url: jdbc:log4jdbc:mariadb://192.168.0.1:3306/hmi
     username: root
     password: iot123!
 logging:
