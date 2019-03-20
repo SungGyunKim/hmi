@@ -26,7 +26,7 @@
 		<if test="IsRead != null and IsRead != ''">
 		AND IsRead = #{IsRead}
 		</if>
-		order by No, AlarmTime, IsRead
+		order by AlarmTime desc, No, IsRead
     </select>
 
 </mapper>

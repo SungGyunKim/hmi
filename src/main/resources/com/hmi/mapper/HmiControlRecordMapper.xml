@@ -30,7 +30,7 @@
 		<if test="Dong != null and Dong != ''">
 		AND Dong = #{Dong}
 		</if>
-		order by No, Dong, Floor, Ho
+		order by RegDate desc, No, Dong, Floor, Ho
     </select>
 
 	<insert id="insertControlRecord">

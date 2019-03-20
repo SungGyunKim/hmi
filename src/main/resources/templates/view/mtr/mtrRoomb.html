@@ -12,7 +12,7 @@
 		
 		.floor .ho {
 			display: inline-block;
-			width: 120px;
+			width: 130px;
 			height: 135px;
 			padding-left: 5px;
 			padding-right: 5px;
@@ -118,11 +118,19 @@
 		<script th:inline="javascript">
 		/*<![CDATA[*/
 			
+		var tim;
+			
 		$(function () {
 			initView();
 			initButton();
 			initGrid();
+			
+			setItnv();
 		});
+		
+		function setItnv(){
+			tim = setInterval('timer_rtn()', 1000 * 60 * 3); // 3분..
+		}
 		
 		function initView() {
 			var floorCount = 5;
@@ -154,8 +162,10 @@
 							
 							$(".modal-container").load(url + param, function(result) {
 								$(".modal").modal("show");
+								//clearInterval(tim);
 							});
 						});
+						
 						floorTemplate.append(hoTemplate);
 					}
 				}
@@ -198,6 +208,7 @@
 				
 				$(".modal-container").load(url + param, function(result) {
 					$(".modal").modal("show");
+					//clearInterval(tim);
 				});
 			});
 		}
@@ -240,7 +251,11 @@
 	            }
 	        });
 		}
-
+		
+		function timer_rtn(){
+			//selectRoomBSts();
+			selectRoombList();
+		}
 		
 		/*]]>*/
 		</script>
